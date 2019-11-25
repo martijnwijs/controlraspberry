@@ -34,4 +34,4 @@ __control buttons__
 
 afhankelijk van de beschikbare tijd kunnen er verschillende control buttons in javascript worden gepogrammeerd. 
 voorbeelden zijn in de volgende afbeelding weergegeven.
-![afbeelding control buttons](https://github.com/uva-webapps/project-martijnwijs/blob/master/buttons.jpg
+![afbeelding control buttons](https://github.com/uva-webapps/project-martijnwijs/blob/master/buttons.jpg)
