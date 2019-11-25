@@ -3,7 +3,7 @@
 Arduino is een opensource-computerplatform bedoeld om microcontrollers eenvoudig te maken. Dit platform is bedoeld voor hobbyisten, artiesten, kunstenaars en iedereen die geïnteresseerd is in het maken en ontwerpen van slimme en creatieve objecten.
 met een  arduino kun je een oneindige hoeveelheid aan "apparaatjes" maken. Arduino systemen bevatten sensoren, actuatoren en een board, welke C code runt.  Deze software programmeer je zelf en zet je vervolgens op de arduino zodat ie het gewenste gedrag vertoont. het aansturen van een arduino met je smartphone of pc is moeilijker en hier moet je zelf een applicatie ontwikkelen. 
 
-__ONLINER__
+__ONELINER__
 de applicatie die ik wil gaan ontwerpen gaat het mogelijk maken om deze arduino's aan te sturen doormiddel van de Webapp waarbij de gebruiker controls kan kiezen uit de applicatie en deze kan configureren met de arduino, zonder dat de gebruiker deze knoppen zelf moet  programmeren.
 
 waar mogelijk gaat de app ook stukjes arduino code genereren/tonen gecombineerd met instructies wat de configuratie makkelijker maakt.
