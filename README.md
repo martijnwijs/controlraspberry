@@ -1,14 +1,25 @@
 # Final Project
 
 Arduino is een opensource-computerplatform bedoeld om microcontrollers eenvoudig te maken. Dit platform is bedoeld voor hobbyisten, artiesten, kunstenaars en iedereen die geïnteresseerd is in het maken en ontwerpen van slimme en creatieve objecten.
-met een  arduino kun je een oneindige hoeveelheid aan "apparaatjes" maken. Arduino systemen bevatten sensoren, actuatoren en een board, welke een soort C software runt.  Deze software programmeer je zelf en zet je vervolgens op de arduino zodat ie het gewenste gedrag vertoont.   
+met een  arduino kun je een oneindige hoeveelheid aan "apparaatjes" maken. Arduino systemen bevatten sensoren, actuatoren en een board, welke C code runt.  Deze software programmeer je zelf en zet je vervolgens op de arduino zodat ie het gewenste gedrag vertoont. het aansturen van een arduino met je smartphone of pc is moeilijker en hier moet je zelf een applicatie ontwikkelen. 
 
-de applicatie die ik wil gaan ontwerpen gaat het mogelijk maken om deze arduino's aan te sturen doormiddel van de Webapp, data te  ontvangen van de arduinos en eventueel (bij genoeg tijd) verschillende arduino's met elkaar gaat verbinden, om zo onderlinge communicatie (IOT) mogelijk te maken.  
+__ONLINER__
+de applicatie die ik wil gaan ontwerpen gaat het mogelijk maken om deze arduino's aan te sturen doormiddel van de Webapp waarbij de gebruiker controls kan kiezen uit de applicatie en deze kan configureren met de arduino, zonder dat de gebruiker deze knoppen zelf moet  programmeren.
+
+waar mogelijk gaat de app ook stukjes arduino code genereren/tonen gecombineerd met instructies wat de configuratie makkelijker maakt.
+
+__Optioneel__
+Daarnaast, wanneer tijd over, gaat de applicatie het mogelijk maken data te  ontvangen van de arduinos en deze op te slaan in sql databases en live te tonen in de app.
+Wanneer er nog meer tijd over is, zou een extra functionaliteit zijn om verschillende arduino's met elkaar te verbinden via de webapp, om zo onderlinge communicatie (IOT) mogelijk te makenen te regulieren.  
+
+
 
 __proof of concept:__ https://www.youtube.com/watch?v=lteGQrY5Yu4 . in dit filmpje wordt een systeem gebouwd waarin een arduino wordt aangestuurd doormiddel van een Flask applicatie.
 
 __wireframes__
 ![afbeelding wireframes](https://github.com/uva-webapps/project-martijnwijs/blob/master/wireframesmetuitleg.jpg)
+
+
 __COMPUTERNETWERK__
 de volgende afbeelding laat zien hoe de verschillende elementen in het netwerk met elkaar in verbinding staan.
 ![afbeelding architectuur](https://github.com/uva-webapps/project-martijnwijs/blob/master/architectuur.jpg)
