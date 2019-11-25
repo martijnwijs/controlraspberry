@@ -35,8 +35,17 @@ staat de arduino in verbinding met de webapp. beiden kunnen door deze  verbindin
 De backend  zal in flask of django worden geprogrammeerd met toegang tot sql databases om metingen van de arduino op te slaan.
 de frontend zal in html/css worden geprogrammeerd met interactie in javascript.
 
-__libaries__
+__libraries__
+arduino (C):
+socket client library https://www.arduinolibraries.info/libraries/web-sockets voor socket client verbinding met webapp
+arduinojson library https://arduinojson.org/
+
+python:
+flask of django voor de webapplicatie
+json om json files  te kunnen sturen/ontvangen
 
 __vergelijkbare apps__
-
+Arduino IoT Cloud, arduino wordt averbonden met de applicatie via laptop met usb. Dus geen directe verbinding 
+https://thingsboard.io/ ,slaat data op en visualiseert maar control opties lijken afwezig. betaald
+https://thinger.io/ opensource  Iot platform, betaald.
 __struikelblokken__
