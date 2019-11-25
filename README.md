@@ -48,4 +48,8 @@ __vergelijkbare apps__
 Arduino IoT Cloud, arduino wordt averbonden met de applicatie via laptop met usb. Dus geen directe verbinding 
 https://thingsboard.io/ ,slaat data op en visualiseert maar control opties lijken afwezig. betaald
 https://thinger.io/ opensource  Iot platform, betaald.
+
 __struikelblokken__
+het lastigste onderdeel gaat waarschijnlijk het  creeëren van controllers worden.
+daarnaast is dit product nooit 'af'. Daarom is het belangrijk goede prioriteiten te stellen, noodzaak van bijzaak te onderscheiden en een planning te maken.
+
