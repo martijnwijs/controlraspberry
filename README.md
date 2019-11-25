@@ -30,5 +30,8 @@ staat de arduino in verbinding met de webapp. beiden kunnen door deze  verbindin
 De backend  zal in flask of django worden geprogrammeerd met toegang tot sql databases om metingen van de arduino op te slaan.
 de frontend zal in html/css worden geprogrammeerd met interactie in javascript.
 
+__control buttons__
 
-
+afhankelijk van de beschikbare tijd kunnen er verschillende control buttons in javascript worden gepogrammeerd. 
+voorbeelden zijn in de volgende afbeelding weergegeven.
+![afbeelding control buttons](https://github.com/uva-webapps/project-martijnwijs/blob/master/buttons.jpg
