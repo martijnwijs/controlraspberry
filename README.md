@@ -50,6 +50,6 @@ https://thingsboard.io/ ,slaat data op en visualiseert maar control opties lijke
 https://thinger.io/ opensource  Iot platform, betaald.
 
 __struikelblokken__
-het lastigste onderdeel gaat waarschijnlijk het  creeëren van controllers worden.
+het lastigste onderdeel gaat waarschijnlijk het  creeëren van controllers in javascript worden.
 daarnaast is dit product nooit 'af'. Daarom is het belangrijk goede prioriteiten te stellen, noodzaak van bijzaak te onderscheiden en een planning te maken.
 
