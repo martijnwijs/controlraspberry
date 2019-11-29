@@ -30,9 +30,10 @@ __Class Controller:__\
   /login<br>
    /register<br>
     /"" __overview page__<br>
-    this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
+    this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. <br>
+__controller page__
 /controller  
-__controller page__<br> where the user can choose controllers
+<br> where the user can choose controllers<br>
 /controller/add<br>
 here  the user  can add controllers
 /setup<br>
