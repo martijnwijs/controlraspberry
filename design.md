@@ -10,7 +10,7 @@ __Class Controller:__\
   user =(foreignkey User)\
   controllers= (manytomany Controller)\
   __optional__\
-  measurements =(manytomany Timeseries)\
+  measurements =(manytomany Timeseries)
   
   __optional__\
   the  timeseries class contains all the  datapoints objects of the measurements
@@ -30,9 +30,9 @@ __Class Controller:__\
   /login
    /register
     /"" __overview page__ this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
-    /controller __controller page__ where the user can choose controllers
-    /controller/add here  the user  can add controllers
-    /setup  __setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
+/controller\ __controller page__ where the user can choose controllers
+/controller/add\ here  the user  can add controllers
+/setup\  __setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
     
   __optional__
    /measurementshere the user can see the current measurements represenated in graphs 
