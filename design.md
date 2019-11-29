@@ -2,15 +2,17 @@ __==================Data Classes in models:===================__<br><br>
 the data is gonna be stored  in sql through python classes
 the controller class contains the controller objects <br><br>
 __Class Controller:__<br>
-  controllername<br><br>
+    controllername<br><br>
  
  the project class contains all the data a certain project has .
  it links to the user, the  controllers and optionally ( if enought time ) the measurements.<br><br>
+ __Class User__<br>
+ (from django library)<br> <br> 
  __Class Project:__<br>
-  user =(foreignkey User)<br>
-  controllers= (manytomany Controller)<br>
-  __optional__<br>
-  measurements =(manytomany Timeseries)<br>
+    user =(foreignkey User)<br>
+    controllers= (manytomany Controller)<br>
+    __optional__<br>
+    measurements =(manytomany Timeseries)<br>
   
   __======optional timeseries ========__<br><br>
   the  timeseries class contains all the  datapoints objects of the measurements<br><br>
@@ -20,17 +22,17 @@ __Class Controller:__<br>
   
   The measurement class contains the measurement objects. the objects have name, labels  for both dimensions and a list  containing all the timeseries objects (datapoints)<br><br>
   __Class Measurement__<br>
-    name (char)<br>
-    ylabel  (char)<br>
-    xlabel (char)<br>
-    data = (manytomany Timeseries)<br><br>
-    
+      name (char)<br>
+      ylabel  (char)<br>
+      xlabel (char)<br>
+      data = (manytomany Timeseries)<br><br>
+   
    __===========================Urls==========================__<br><br>
     
   /login<br><br>
    /register<br><br>
     /"" <br>
-    this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. <br><br>
+    this page contains all he projects the user has created  so far. the user can open a project add  and  delete projects. <br><br>
 /controller  
 here the user can choose controllers<br><br>
 /controller/add<br>
