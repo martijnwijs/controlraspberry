@@ -3,11 +3,12 @@ the data is gonna be stored  in sql through python classes
 the controller class contains the controller objects <br><br>
 __Class Controller:__<br>
     controllername<br><br>
+  __Class User__<br>
+ (from django library)<br> <br> 
  
  the project class contains all the data a certain project has .
  it links to the user, the  controllers and optionally ( if enought time ) the measurements.<br><br>
- __Class User__<br>
- (from django library)<br> <br> 
+
  __Class Project:__<br>
     user =(foreignkey User)<br>
     controllers= (manytomany Controller)<br>
