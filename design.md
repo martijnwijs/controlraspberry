@@ -1,31 +1,31 @@
-__==================Data Classes in models:===================__
+__==================Data Classes in models:===================__<br><br>
 the data is gonna be stored  in sql through python classes
-the controller class contains the controller objects 
-__Class Controller:__\
-  controllername
+the controller class contains the controller objects <br><br>
+__Class Controller:__<br>
+  controllername<br><br>
  
  the project class contains all the data a certain project has .
- it links to the user, the  controllers and optionally ( if enought time ) the measurements.
- __Class Project:__\
-  user =(foreignkey User)\
-  controllers= (manytomany Controller)\
-  __optional__\
-  measurements =(manytomany Timeseries)
+ it links to the user, the  controllers and optionally ( if enought time ) the measurements.<br><br>
+ __Class Project:__<br>
+  user =(foreignkey User)<br>
+  controllers= (manytomany Controller)<br>
+  __optional__<br>
+  measurements =(manytomany Timeseries)<br>
   
-  __optional__\
-  the  timeseries class contains all the  datapoints objects of the measurements
-  __Class Timeseries__\
-    ypoint (float)\
-    timepoint (float)\
+  __======optional timeseries ========__<br><br>
+  the  timeseries class contains all the  datapoints objects of the measurements<br><br>
+  __Class Timeseries__<br>
+    ypoint (float)<br>
+    timepoint (float)<br><br>
   
-  The measurement class contains the measurement objects. the objects have name, labels  for both dimensions and a list  containing all the timeseries objects (datapoints)
-  __Class Measurement__\
-    name (char)\
-    ylabel  (char)\
-    xlabel (char)\
-    data = (manytomany Timeseries)
+  The measurement class contains the measurement objects. the objects have name, labels  for both dimensions and a list  containing all the timeseries objects (datapoints)<br><br>
+  __Class Measurement__<br>
+    name (char)<br>
+    ylabel  (char)<br>
+    xlabel (char)<br>
+    data = (manytomany Timeseries)<br><br>
     
-   __===========================Urls==========================__
+   __===========================Urls==========================__<br><br>
     
   /login<br><br>
    /register<br><br>
@@ -42,7 +42,7 @@ the user learns how to setup the arduino code and connect the arduino with the w
    /measurements/add <br>here the user  can add measurements
     
     
-   __====================Socket.IO============================__
+   __====================Socket.IO============================__<br><br>
   here follows  some information about the websocket between the  arduino en the webserver.
  on the /controllerpage page , a switch is displayed haveing the options ON and OFF.
  there is a:
