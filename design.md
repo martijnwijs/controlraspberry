@@ -31,7 +31,7 @@ __Class Controller:__\
    /register
     /"" __overview page__
     this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
-/controller\ 
+/controller  
 __controller page__ where the user can choose controllers
 /controller/add
 here  the user  can add controllers
