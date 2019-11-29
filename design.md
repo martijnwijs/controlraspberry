@@ -27,7 +27,7 @@ __Class Controller:__\
     
    __Urls__
     
-  /login
+  /login<br>
    /register
     /"" __overview page__
     this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
