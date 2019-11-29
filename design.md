@@ -27,17 +27,16 @@ __Class Controller:__\
     
    __Urls__
     
-  /login<br>
-   /register<br>
-    /"" __overview page__<br>
+  /login<br><br>
+   /register<br><br>
+    /"" <br>
     this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. <br>
-__controller page__
 /controller  
-<br> where the user can choose controllers<br>
+<br> where the user can choose controllers<br><br>
 /controller/add<br>
-here  the user  can add controllers
+here  the user  can add controllers<br><br>
 /setup<br>
-__setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
+__setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino<br><br>
     
   __optional__
    /measurementshere the user can see the current measurements represenated in graphs 
