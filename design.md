@@ -29,7 +29,7 @@ __Class Controller:__\
     
   /login
    /register
-    /"" __overview page__ this page contains all he projects the user has created  so far. \the user can open a project add  and  delete projects. 
+    /"" __overview page__ this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
     /controller __controller page__ where the user can choose controllers
     /controller/add here  the user  can add controllers
     /setup  __setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
@@ -50,8 +50,6 @@ on the webserver there is a:
   broadcast switchbutton="ON", such that the arduino cleint websocket can understand the message.
 
 on the arduino, connected with wifi there is a:
-- socket client receiving emit from webserver and translating this to controlling the led.
+- socket client receiving emit from webserver and translating this to controlling the led
 
-when 
-    
     
