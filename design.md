@@ -38,9 +38,8 @@ here  the user  can add controllers<br><br>
 /setup<br>
 __setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino<br><br>
     
-  __optional__
-   /measurementshere the user can see the current measurements represenated in graphs 
-   /measurements/add here the user  can add measurements
+   /measurements<br>here the user can see the current measurements represenated in graphs <br><br>
+   /measurements/add <br>here the user  can add measurements
     
     
    __socket.IO__
