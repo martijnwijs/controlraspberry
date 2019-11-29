@@ -1,4 +1,4 @@
-__Data Classes in models:__
+__================================Data Classes in models:==================================__
 the data is gonna be stored  in sql through python classes
 the controller class contains the controller objects 
 __Class Controller:__\
@@ -25,7 +25,7 @@ __Class Controller:__\
     xlabel (char)\
     data = (manytomany Timeseries)
     
-   __Urls__
+   __=====================================Urls======================================================__
     
   /login<br><br>
    /register<br><br>
@@ -42,7 +42,7 @@ the user learns how to setup the arduino code and connect the arduino with the w
    /measurements/add <br>here the user  can add measurements
     
     
-   __socket.IO__
+   __================================================Socket.IO=============================================================__
   here follows  some information about the websocket between the  arduino en the webserver.
  on the /controllerpage page , a switch is displayed haveing the options ON and OFF.
  there is a:
