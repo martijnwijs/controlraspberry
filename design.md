@@ -23,16 +23,20 @@ __Class Controller:__\
     name (char)\
     ylabel  (char)\
     xlabel (char)\
-    data = (manytomany Timeseries)\
+    data = (manytomany Timeseries)
     
    __Urls__
     
   /login
    /register
-    /"" __overview page__ this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
-/controller\ __controller page__ where the user can choose controllers
-/controller/add\ here  the user  can add controllers
-/setup\  __setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
+    /"" __overview page__
+    this page contains all he projects the user has created  so far.\the user can open a project add  and  delete projects. 
+/controller\ 
+__controller page__ where the user can choose controllers
+/controller/add
+here  the user  can add controllers
+/setup
+__setuppage__ the user learns how to setup the arduino code and connect the arduino with the webapp. for private sessions the user might fill in the IP adress of the arduino
     
   __optional__
    /measurementshere the user can see the current measurements represenated in graphs 
