@@ -4,8 +4,8 @@ __Class Controller:__
   controllername
  
  __Class Project:__
-  user =(foreignkey User)
-  controllers= (manytomany Controller)
+  user =(foreignkey User)\
+  controllers= (manytomany Controller)\
   __optional__
   measurements =(manytomany Timeseries)
   
