@@ -1,0 +1,12 @@
+<form method="POST" action="/addcontroller">
+    Type: <select name="type">
+    <option value="slider" selected>slider</option>
+    <option value="toggle">toggle</option>
+        </select>
+    Pinnumber<input name="pinnumber" type="number" min="1" max="50" value="1">
+    Min: <input name="min" type="number" min="0" max="100" value="0">
+    Max: <input name="max" type="number" min="1" max="100" value="10">
+    The slider values will be mapped between 0 and 255
+    Name: <input name="name" type="text">
+    <input type="submit">
+    </form>
