@@ -17,5 +17,8 @@ __4-12__
 gevraagd aan Simon over hoe ik dit probleem het best kon aanpakken. hij had al meer ervaring met websockets en vertelde over de libary socket.io for Python. Toen had ik vrij snel een socket verbinding gecreeerd met een flask applicatie en een python programma die naar beide kanten data kon versturen. verder de eerste control button geprogrammeerd (toggle switch), zowel front als backend.
 
 __5-12__
-verder gewerkt aan de app.  veel geleerd over javascript, hoe je eventlisteners gebruikt
-6-12__
+verder gewerkt aan de app. Veel geleerd over javascript, eventlisteners en innerhtml om dynamische content te laten zien. dit was al eerder langsgekomen bij books maar werd nu wat duidelijker. en hoe je functies in functies maakt.
+aan het einde van de dag was de alphaversie nog niet vergenoeg, er konden nog geen control buttons worden toegevoegd. 
+
+__6-12__
+De alpha versie afgemaakt. er zijn nu twee soorten control buttons: toggle switch en slider , welke kunnen worden toegevoegd, waarbij ook de juiste pin wordt aangegeven. alleen verstuurd de websocket in de json nog niet de juiste data naar de controller, idealiter wordt dit zoveel mogelijk regels code die gelijk kunnen worden uitgevoerd, zodat dat de gebruiker het programma voor de controller niet moet bijwerken wanneer nieuwe opties worden toegevoegd. daarnaast een tabel gemaakt om de controllers op te slaan. er ontstond nog een error: na het bijwerken van de database doormiddel van het bestand create.py deed 'flask run' het niet meer. op stackoverflow kwam ik er uiteindelijk achter dat het kwam doordat ik twee keer een app had gecreeerd, een in application.py en een in create.py. ik heb vervolgens create.py geimporteerd in application.py en vervolgens in application.py de regel "app = Flask(__name__)" verwijdered.
