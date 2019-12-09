@@ -83,31 +83,39 @@ def nietslim(data):
 @socketio.on("updatedata")
 def updatedata(data):
     print("data: ", data)
-    print("measurementname: ", session['record'], record)
-    # if recording write to csv file
-    if record == True and measurementname == str(data['measurementname']):
-        print("writing to csv")
-        filename = str(data['measurementname'].csv)
-        file = open(filename, "a")
-        writer = csv.writer(file)
-        writer.writerow((data['time'], data['value']))
-        file.close()
+    
     emit("updatedata", data, broadcast=True)
 
 # when user starts recording
-@socketio.on("startrecording")
-def startrecording(data):
-    print("startrecording")
-    measurementname = str(data['measurementname'])
-    session['measurementname'] = str(data['measurementname'])
-    session['record'] = 'True'
+@socketio.on("recording")
+def recording(data):
+    print("recording")
+
+    filename = str(data['measurementname'])+".csv"
+    file = open(filename, "a")
+    writer = csv.writer(file)
+    writer.writerow((data['time'], data['value']))
+    file.close()
     return measurementname
 
 # when user ends recording
 @socketio.on("stoprecording")
 def stoprecording(data):
     print("stoprecording")
-    session['measurementname'] = str(data['measurementname'])
-    session['record'] = 'False'
-    return record, measurementname
+    filename = str(data['measurementname'])+".csv"
+    return send_file(filename)
+
+    '''
+    try:
+        filename = str(data['measurementname'])+".csv"
+        with open(filename, 'r') as file:
+            pass
+        
+    except FileNotFoundError:
+        pass
+        '''
+        
+
+    
+
 

@@ -26,20 +26,24 @@
             updataData(eval(data['measurementname']))
 
             // if recording send data 
-            //document.querySelectorAll('input').forEach(input => {
-                //if (input.type == "checkbox" && input.checked == true) {
-                    //socket.emit('startrecording'
+            document.querySelectorAll('input').forEach(input => {
+                if (input.type == "checkbox" && input.checked == true) {
+                    measurementname = input.dataset.record
+                    socket.emit('recording', {'measurementname': measurementname, 'time': data['time'], 'value': data['value']})
+                }
+
+            })
         });
 
         // record function sends json to application.py to activate function
         document.querySelectorAll('input').forEach(input => {
             input.oninput = () => {
-                alert("works")
+                //alert("works")
                 // start recording
-                if (input.type == "checkbox" && input.checked == true) {
-                    measurementname = input.dataset.record
-                    socket.emit('startrecording', { 'measurementname': measurementname });
-                }
+                //if (input.type == "checkbox" && input.checked == true) {
+                   // measurementname = input.dataset.record
+                    //socket.emit('startrecording', { 'measurementname': measurementname });
+                //}
                 // stop recording 
                 if (input.type == "checkbox" && input.checked == false) {
                     measurementname = input.dataset.record
