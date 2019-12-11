@@ -1,9 +1,10 @@
 
 import os
+import io
 import requests
 import csv
 
-from flask import Flask, jsonify, render_template, request, redirect, send_file, session
+from flask import Flask, jsonify, render_template, request, redirect, send_file, session,  current_app
 from flask_socketio import SocketIO, emit
 from models import *
 from create import *
@@ -11,6 +12,7 @@ from create import *
 
 # what is this
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+
 
 # start socketio
 socketio = SocketIO(app)
@@ -21,18 +23,31 @@ socketio = SocketIO(app)
 #global variables
 measurementname = ''
 
-@app.route("/") 
+@app.route("/", methods=["GET", "POST"]) 
 def index():
-    # get all current controllers
-    controllers = Controller.query.all()
-    return render_template("index.html", controllers=controllers)
-
+    if request.method == "GET":
+        # get all current controllers
+        controllers = Controller.query.all()
+        return render_template("index.html", controllers=controllers)
+    if request.method == "POST":
+        name = request.form['name']
+       
+        controller = Controller.query.filter(Controller.name == name).delete()
+        #print(controller)
+        #db.session.delete(controller)
+        db.session.commit()
+        return redirect("/")
 # handles measurement page
-@app.route("/measurements")
+@app.route("/measurements", methods=["GET", "POST"])
 def measurements():
-    measurements = Measurement.query.all()
-    return render_template("measurements.html", measurements=measurements)
-
+    if request.method == "GET":
+        measurements = Measurement.query.all()
+        return render_template("measurements.html", measurements=measurements)
+    if request.method == "POST":
+        name = request.form['name']
+        measurement = Measurement.query.filter(Measurement.name == name).delete()
+        db.session.commit()
+        return redirect("/measurements")
 @app.route("/addcontroller", methods=["GET", "POST"]) 
 def addcontroller():
     if request.method == "GET":
@@ -65,15 +80,32 @@ def addmeasurement():
         db.session.commit()
         return redirect("/measurements")
 
-@socketio.on("submitswitch") # receives switch event from javascript
+# handles download requests + add error handling # make safe for injection!!
+@app.route("/download/<filename>")
+def download_file(filename):
+    file_path = filename
+    file_handle = open(file_path, 'r')
+
+    # This *replaces* the `remove_file` + @after_this_request code above
+    def stream_and_remove_file():
+        yield from file_handle
+        file_handle.close()
+        os.remove(file_path)
+
+    return current_app.response_class(
+        stream_and_remove_file(),
+        headers={f'Content-Disposition': 'attachment; filename: {filename}; mimetype=text/csv', 'Content-Type': 'text/csv'}
+    )
+
+@app.route("/setup") 
+def setup():
+    return render_template("setup.html")
+    
+# receives switch event from javascript
+@socketio.on("submitswitch") 
 def vote(data):
     print(data)
-    selection = data["selection"]
-    #pin = data["pin"]
-    
-    print(selection)
-    #print("pin: ", pin)
-    emit("announceswitch", {"selection": selection}, broadcast=True)
+    emit("announceswitch", data, broadcast=True)
 
 @socketio.on("test") #from python script
 def nietslim(data):
@@ -92,18 +124,19 @@ def recording(data):
     print("recording")
 
     filename = str(data['measurementname'])+".csv"
-    file = open(filename, "a")
+    print(filename)
+    file = open(filename, "a+")
     writer = csv.writer(file)
     writer.writerow((data['time'], data['value']))
     file.close()
-    return measurementname
+    #return measurementname
 
 # when user ends recording
-@socketio.on("stoprecording")
-def stoprecording(data):
-    print("stoprecording")
-    filename = str(data['measurementname'])+".csv"
-    return send_file(filename)
+#@socketio.on("stoprecording")
+#def stoprecording(data):
+    #print("stoprecording")
+    #filename = str(data['measurementname'])+".csv"
+    #return send_file(filename)
 
     '''
     try:

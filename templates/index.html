@@ -45,19 +45,29 @@
 
     <!-- generate the different controllers-->
     {% for controller in controllers %}
-    {% if controller.type == "toggle" %}
+    {% if controller.type == "toggle" or controller.type == "execute" %}
     <div class="containerx">
         <label class="switch">
-            <input data-pin={{controller.pinnumber}} type="checkbox">
+            <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="checkbox">
             <span class="slider round"></span>
         </label>
+        <form method="POST" action="/">
+            <input name="name" type="hidden" value="{{ controller.name }}">
+            <button type="submit">delete</button>
+        </form>
     </div>
+
     {% endif %}
     {% if controller.type == "slider" %}
     <div class="containerx">
-        <input data-pin={{controller.pinnumber}} type="range" min={{controller.min}} max={{controller.max}} value=0 class="slidebar" id="myRange">
+        <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="range" min={{controller.min}} max={{controller.max}} value=0
+            class="slidebar" id="myRange">
         <p id={{controller.pinnumber}}> 0 </p>
-</div>
+        <form method="POST" action="/">
+            <input name="name" type="hidden" value="{{ controller.name }}">
+            <button type="submit">delete</button>
+        </form>
+    </div>
     {% endif %}
     {% endfor %}
     <a href="/addcontroller">add controller</a>
@@ -76,23 +86,26 @@
                     input.oninput = () => {
                         // checkbox
                         if (input.type == "checkbox" && input.checked == true) {
-                            var selection = "on";
+                            var selection = "HIGH";
                         }
 
                         else if (input.type == "checkbox" && input.checked == false) {
-                            var selection = "off";
+                            var selection = "LOW";
                         }
                         // slider
 
                         else {
                             var selection = input.value;
+                            
                             document.getElementById(String(input.dataset.pin)).innerHTML = selection;
                             //$("#outputslider",$(this).parent()).html(selection); 
                             //outputslider.innerHTML = input.value;
                         }
                         // other data of pin
                         var pin = input.dataset.pin;
-                        socket.emit('submitswitch', { 'selection': selection, 'pin': pin }); //event name, json object
+                        var type = input.dataset.type;
+                        var name = input.dataset.name
+                        socket.emit('submitswitch', {'name': name, 'type': type, 'value': selection, 'pin': pin }); //event name, json object
                     };
                 });
             });

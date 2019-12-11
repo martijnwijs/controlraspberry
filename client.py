@@ -38,5 +38,5 @@ while True:
     data = (x,y)
     print(data)
     
-    sio.emit("updatedata", {'measurementname': 'sdf','time': x, 'value': y})
+    sio.emit("updatedata", {'measurementname': 'hy','time': x, 'value': y})
     time.sleep(1)
