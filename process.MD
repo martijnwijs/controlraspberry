@@ -18,7 +18,18 @@ gevraagd aan Simon over hoe ik dit probleem het best kon aanpakken. hij had al m
 
 __5-12__
 verder gewerkt aan de app. Veel geleerd over javascript, eventlisteners en innerhtml om dynamische content te laten zien. dit was al eerder langsgekomen bij books maar werd nu wat duidelijker. en hoe je functies in functies maakt.
-aan het einde van de dag was de alphaversie nog niet vergenoeg, er konden nog geen control buttons worden toegevoegd. 
+aan het einde van de dag was de alphaversie nog niet ver genoeg, er konden nog geen control buttons worden toegevoegd. 
 
 __6-12__
 De alpha versie afgemaakt. er zijn nu twee soorten control buttons: toggle switch en slider , welke kunnen worden toegevoegd, waarbij ook de juiste pin wordt aangegeven. alleen verstuurd de websocket in de json nog niet de juiste data naar de controller, idealiter wordt dit zoveel mogelijk regels code die gelijk kunnen worden uitgevoerd, zodat dat de gebruiker het programma voor de controller niet moet bijwerken wanneer nieuwe opties worden toegevoegd. daarnaast een tabel gemaakt om de controllers op te slaan. er ontstond nog een error: na het bijwerken van de database doormiddel van het bestand create.py deed 'flask run' het niet meer. op stackoverflow kwam ik er uiteindelijk achter dat het kwam doordat ik twee keer een app had gecreeerd, een in application.py en een in create.py. ik heb vervolgens create.py geimporteerd in application.py en vervolgens in application.py de regel "app = Flask(__name__)" verwijdered.
+
+__7-12__
+Aan de meetpagina begonnen. geleerd hoe de uitbreiding chart.js werkt. Live data gestreamd vanaf een client programma.
+
+__8-12__
+verder gegaan aan de measurement pagina en de record functie gemaakt. geleerd hoe je een csv bestand stuurt en hoe je deze vervolgens in  de zelfde functie verwijdert. dit bleek best lastig doordat wanneer je functie stuurt je hem niet kan verwijderen. de  oplossing bleek om het bestand te kopieren in het tijdelijk geheugen en vervolgens te verwijderen. 
+
+__9-12__
+voor het eerst de raspberry aangestuurd via de app. alles werkte behoorlijk goed. het lukte om een ledje aan en uit te laten gaan, code te excecuten en een servostand te veranderen.  geleerd hoe je doormiddel van  een  doorgegeven string een variabele aanroept. dit  doe je doormiddel van een dictionary. als je bijvoorbeeld GPIO.OUT wil callen maar je krijgt de string "GPIO.OUT" binnen, dan kun je deze variabele aanroepen doormiddel van de dictionary  dict = {"GPIO.OUT": GPIO.OUT}.
+verder geleerd over hoe je een servo aanstuurt met de raspberry pi. dit  gebeurt door een varierend PWM signaal, en dit is precies wat de slider controller gaat doen. de duty cycle , de verhouding tusen pulsduur en de periode. bij servos zit deze vaak tussen de 2% en 15%. het idee is dat de gebruiker de pulsduur aangeeft en dat hierdoor vervolgens het juiste signaal bij de actuator uitkomt. dit is ook gelukt.  
+
