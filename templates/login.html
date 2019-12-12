@@ -1,0 +1,43 @@
+{% extends "layout2.html" %}
+{% block main %}
+hello!
+<!--login
+<div class="loginbox">
+<form method="POST" action="/">
+    User Name:<br>
+    <input type="text" name="username"><br>
+    Password:<br>
+    <input type="password" name="password">
+    <input type="submit">
+</form>
+<a href="{{ url_for('register') }}"> Or register here!</a>
+</div>
+-->
+<div class="sidenav">
+   <div class="login-main-text">
+      <h2>Books WEBapp<br> Login Page</h2>
+      <p>Login or register from here to access.</p>
+   </div>
+</div>
+<div class="main">
+   <div class="col-md-6 col-sm-12">
+      <div class="login-form">
+         <form method="POST" action="/login">
+            <div class="form-group">
+               <label>Username</label>
+               <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+               <label>Password</label>
+               <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            {% if login is defined %}
+            unknown account!
+            {% endif %}
+            <button type="submit" class="btn btn-black">Login</button>
+         </form>
+         <a href="{{ url_for('register') }}"> Or register here!</a>
+      </div>
+   </div>
+</div>
+{% endblock %}

@@ -8,7 +8,12 @@ from flask import Flask, jsonify, render_template, request, redirect, send_file,
 from flask_socketio import SocketIO, emit
 from models import *
 from create import *
+
+# hash password
+from hash import*
+
 #app = Flask(__name__) # Instantiate a new web application called `app`, with `__name__` representing the current file
+
 
 # what is this
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -29,60 +34,113 @@ def logged_in():
 measurementname = ''
 
 # handles login
-@app.route("/login", methods=["GET", POST])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
+        return render_template("login.html")
 
+    if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
     
         # check if username is in database
-        data = db.execute("SELECT * FROM accounts WHERE username = :username", {"username": username}).fetchone()
-    
+        data = Account.query.filter(Account.username == username).first() #check of dit niet hoeft
+       
         # if not redirect to same page
         if data is None:
-            return render_template("index.html", login = False)
+            return render_template("login.html", login=False)
 
         # check if hashed password is the given password by the user
         # if so start a session and redirect to search page
-        if verify_password(data.password, password):
-            user = db.execute("SELECT * FROM accounts WHERE username = :username", {"username": username}).fetchone()
+        if verify_password(data.passwordhashed, password):
+            user = Account.query.filter(Account.username == username).first() #check of dit niet hoeft
             session['user'] = user.id
-            return redirect("/search")
+            return redirect("/")
 
     # else redirect to the same page
-    return render_template("index.html", login = False)
+    return render_template("login.html", login=False)
+
+# logout
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.pop("user", None)
+    return redirect("/login")
+
+# register
+# navigate to register.html
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "GET":
+        return render_template("register.html")
+
+    if request.method == "POST":
+        print("register")
+        # get username and password
+        username = request.form.get("username")
+        password = request.form.get("password") 
+
+        # check if username already in database
+        username_check = Account.query.filter(Account.username == username).first() #check of dit niet hoeft
+        print(username_check)
+        if username_check != None: ## kijk wat dit geeft
+            return render_template("register.html", available = False)
+
+        # if username and or password is an empty string, redirect to same page with message
+        if len(username) ==0 or len(password) == 0: 
+            return render_template("register.html", characters = False)
+
+        #Hash password
+        passwordhashed = hash_password(password)
+
+        # add user to database
+        user = Account(username=username, passwordhashed=passwordhashed)
+        db.session.add(user)
+        db.session.commit()
+        # start a private session
+
+        user = Account.query.filter(Account.username == username).first() #check of dit niet hoeft
+        session['user'] = user.id
+        return redirect("/")
 
 @app.route("/", methods=["GET", "POST"]) 
 def index():
     if request.method == "GET":
+        if not logged_in():
+            return redirect("/login")
         # get all current controllers
-        controllers = Controller.query.all()
+        controllers = Controller.query.filter(Controller.user == session['user']).all()
         return render_template("index.html", controllers=controllers)
     if request.method == "POST":
         name = request.form['name']
-       
         controller = Controller.query.filter(Controller.name == name).delete()
         #print(controller)
         #db.session.delete(controller)
         db.session.commit()
         return redirect("/")
+
 # handles measurement page
 @app.route("/measurements", methods=["GET", "POST"])
 def measurements():
     if request.method == "GET":
+        if not logged_in():
+            return redirect("/login")
+
         measurements = Measurement.query.all()
         return render_template("measurements.html", measurements=measurements)
     if request.method == "POST":
         name = request.form['name']
         measurement = Measurement.query.filter(Measurement.name == name).delete()
+        Measurement.query.filter(and_(Measurement.name == name, Measurement.user == session['user'])).all().delete()
         db.session.commit()
         return redirect("/measurements")
 
 @app.route("/addcontroller", methods=["GET", "POST"]) 
 def addcontroller():
     if request.method == "GET":
+        if not logged_in():
+            return redirect("/login")
         return render_template("addcontroller.html")
+
     if request.method == "POST":
         type = request.form.get("type")
         name = request.form.get("name")
@@ -91,7 +149,7 @@ def addcontroller():
         max = request.form.get("max")
 
         # add to database
-        controller = Controller(type=type, name=name, pinnumber=pinnumber, min=min, max=max)
+        controller = Controller(type=type, name=name, pinnumber=pinnumber, min=min, max=max, user=session['user'])
         db.session.add(controller)
         db.session.commit()
         return redirect("/")
@@ -99,6 +157,8 @@ def addcontroller():
 @app.route("/addmeasurement", methods=["GET", "POST"]) 
 def addmeasurement():
     if request.method == "GET":
+        if not logged_in():
+            return redirect("/login")
         return render_template("addmeasurement.html")
     if request.method == "POST":
 
@@ -106,7 +166,7 @@ def addmeasurement():
         pinnumber = request.form.get("pinnumber")
         ylabel = request.form.get("label")
         # add to database
-        measurement = Measurement(name=name, pinnumber=pinnumber, ylabel=ylabel)
+        measurement = Measurement(name=name, pinnumber=pinnumber, ylabel=ylabel, user=session['user'])
         db.session.add(measurement)
         db.session.commit()
         return redirect("/measurements")
@@ -114,6 +174,9 @@ def addmeasurement():
 # handles download requests + add error handling # make safe for injection!!
 @app.route("/download/<filename>")
 def download_file(filename):
+    if not logged_in():
+        return redirect("/login")
+
     file_path = filename
     file_handle = open(file_path, 'r')
 
@@ -130,13 +193,19 @@ def download_file(filename):
 
 @app.route("/setup") 
 def setup():
+    if not logged_in():
+        return redirect("/login")
     return render_template("setup.html")
     
 # receives switch event from javascript
 @socketio.on("submitswitch") 
 def vote(data):
     print(data)
-    emit("announceswitch", data, broadcast=True)
+
+    # split id's to make broadcasting to more users possible
+    listid = data['sid'].split(',')
+    for id in listid:
+        emit("announceswitch", data, room=id)
 
 @socketio.on("test") #from python script
 def nietslim(data):
@@ -146,7 +215,6 @@ def nietslim(data):
 @socketio.on("updatedata")
 def updatedata(data):
     print("data: ", data)
-    
     emit("updatedata", data, broadcast=True)
 
 # when user starts recording

@@ -58,17 +58,19 @@
             <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="checkbox">
             <span class="slider round"></span>
         </label>
+        <div id="">
         <p2>
         Type: {{controller.type}}<br>
         Name: {{controller.name}}<br>
         Pinnumber: {{controller.pinnumber}}<br>
-        
+        </p2>
+        <input type="text" id={{controller.name}}>
+        </div>
         <form method="POST" action="/">
             <input name="name" type="hidden" value="{{ controller.name }}">
-            
             <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;"/>
         </form>
-        </p2>
+        
     </div>
 
     {% endif %}
@@ -101,25 +103,31 @@
                         // checkbox
                         if (input.type == "checkbox" && input.checked == true) {
                             var selection = "HIGH";
+                            emitevent(input)
                         }
 
                         else if (input.type == "checkbox" && input.checked == false) {
                             var selection = "LOW";
+                            emitevent(input)
                         }
                         // slider
 
-                        else {
+                        else if (input.type == "range"){
                             var selection = input.value;
+                            emitevvent(input)
                             
                             document.getElementById(String(input.dataset.pin)).innerHTML = selection;
                             //$("#outputslider",$(this).parent()).html(selection); 
                             //outputslider.innerHTML = input.value;
                         }
-                        // other data of pin
-                        var pin = input.dataset.pin;
-                        var type = input.dataset.type;
-                        var name = input.dataset.name
-                        socket.emit('submitswitch', {'name': name, 'type': type, 'value': selection, 'pin': pin }); //event name, json object
+                        function emitevent(input) {
+                            // other data of pin
+                            var pin = input.dataset.pin;
+                            var type = input.dataset.type;
+                            var name = input.dataset.name
+                            var sid = document.getElementById(name).value
+                            socket.emit('submitswitch', {'name': name, 'type': type, 'value': selection, 'pin': pin, 'sid': sid}); //event name, json object
+                        }
                     };
                 });
             });

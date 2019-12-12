@@ -29,6 +29,7 @@ try:
 except KeyboardInterrupt:
     quit()
 
+'''
 x=0
 y=1.
 while True:
@@ -40,3 +41,4 @@ while True:
     
     sio.emit("updatedata", {'measurementname': 'hy','time': x, 'value': y})
     time.sleep(1)
+'''
