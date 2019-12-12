@@ -17,11 +17,41 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 # start socketio
 socketio = SocketIO(app)
 
-
+#function that checks  if the user is logged in:
+def logged_in():
+    #check if user is logged in
+    if session.get("user", None) is not None: 
+        return True
+    return False
 # handles controller page
 
 #global variables
 measurementname = ''
+
+# handles login
+@app.route("/login", methods=["GET", POST])
+def login():
+    if request.method == "GET":
+
+        username = request.form.get("username")
+        password = request.form.get("password")
+    
+        # check if username is in database
+        data = db.execute("SELECT * FROM accounts WHERE username = :username", {"username": username}).fetchone()
+    
+        # if not redirect to same page
+        if data is None:
+            return render_template("index.html", login = False)
+
+        # check if hashed password is the given password by the user
+        # if so start a session and redirect to search page
+        if verify_password(data.password, password):
+            user = db.execute("SELECT * FROM accounts WHERE username = :username", {"username": username}).fetchone()
+            session['user'] = user.id
+            return redirect("/search")
+
+    # else redirect to the same page
+    return render_template("index.html", login = False)
 
 @app.route("/", methods=["GET", "POST"]) 
 def index():
@@ -48,6 +78,7 @@ def measurements():
         measurement = Measurement.query.filter(Measurement.name == name).delete()
         db.session.commit()
         return redirect("/measurements")
+
 @app.route("/addcontroller", methods=["GET", "POST"]) 
 def addcontroller():
     if request.method == "GET":

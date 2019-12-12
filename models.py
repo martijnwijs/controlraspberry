@@ -19,6 +19,13 @@ class Measurement(db.Model):
     pinnumber = db.Column(db.Integer, nullable=False)
     ylabel = db.Column(db.String, nullable=True)   
 
+class Account(db.Model):
+    __tablename="accounts"
+    id = db.column(db.integer) #user id
+    username = db.Column(db.String, nullable=False)
+    passwordhashed = db.Column(db.String, nullable=False)
+    
+
 #class Datapoint(db.Model):
     #__tablename__="datapoints"
     #id = db.Column(db.Integer, primary_key=True)
