@@ -1,4 +1,10 @@
 // switch button
+
+
+$desert: #FFCB9A;
+$clay: #A43820;
+$crevice: #46211A;
+$cloud: #693D3D;
 .switch {
     position: relative;
     display: inline-block;
@@ -37,7 +43,7 @@
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: 		#b3ff99;
   }
   
   input:focus + .slider {
@@ -98,23 +104,51 @@
     cursor: pointer;
   } 
 
-  // container
+  // container controller
   .containerx {
     display: flex;
     flex-wrap: wrap;
     border-radius: 5px;
-    background: #6dd7e6;
+    background: $desert;
     padding: 20px;
     margin: 20px;
     height: 200px;
     max-width: 100%;
+    position: relative;
+    display: block;
+  }
+
+  
+  // container measurement
+  .containermeas {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    background: $desert;
+    padding: 20px;
+    margin: 20px;
+    max-width: 100%;
+    position: relative;
+    display: block;
   }
   
- div p2 {
-    font-size: 20px;
-    color: #ffffff;
-    margin-left: 20%;
+ .buttoninfo {
+    width: 50%;
+    right: 2px;
+    float: right;
+
+    p2 {
+      font-size: 20px;
+      color: #ffffff;
+      
+    }
   }
+.delete {
+  position: absolute;
+  right: 40px;
+  top: 25px;
+}
+
   img:hover {
     filter: hue-rotate(180deg);
     -webkit-filter: hue-rotate(180deg);
@@ -122,7 +156,7 @@
 
 @media (min-width:1200px){
  
-  .containerx {
+  .containerx, .containermeas {
     width: 45%;
     
     display:inline-block;
@@ -131,7 +165,7 @@
 
 @media (min-width:2300px){
  
-  .containerx {
+  .containerx, containermeas {
     width: 30%;
     
     display:inline-block;

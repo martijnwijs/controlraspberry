@@ -18,129 +18,180 @@
 
 {% extends "template.html" %}
 {% block body %}
-    <ul id="switches">
-    </ul>
-    <hr>
+<ul id="switches">
+</ul>
+<hr>
 
-    <!-- switches-->
-    <div class="containerx">
-        <label class="switch">
-            <input data-pin=1 type="checkbox">
-            <span class="slider round"></span>
-        </label>
+<!-- switches-->
 
-    </div>
-    <div class="containerx">
-        <label class="switch">
-            <input data-pin=2 type="checkbox">
-            <span class="slider round"></span>
-        </label>
-    </div>
+<div class="containerx">
+    <label class="switch">
+        <input data-pin=1 type="checkbox">
+        <span class="slider round"></span>
+    </label>
 
-    <!-- slider-->
+</div>
+<div class="containerx">
+    <label class="switch">
+        <input data-pin=2 type="checkbox">
+        <span class="slider round"></span>
+    </label>
+</div>
 
-    <div class="containerx">
-        <input data-pin=3 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
-        <p id="3">50</p>
-    </div>
+<!-- slider-->
+
+<div class="containerx">
+    <input data-pin=3 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
+    <p id="3">50</p>
+</div>
 
 
-    <div class="containerx">
-        <input data-pin=4 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
-        <p id="4">50</p>
-    </div>
+<div class="containerx">
+    <input data-pin=4 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
+    <p id="4">50</p>
+</div>
 
-    <!-- generate the different controllers-->
-    {% for controller in controllers %}
-    {% if controller.type == "toggle" or controller.type == "execute" %}
-    <div class="containerx">
-        <label class="switch">
-            <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="checkbox">
-            <span class="slider round"></span>
-        </label>
-        <div id="">
+<!-- generate the different controllers-->
+{% for controller in controllers %}
+{% if controller.type == "toggle" or controller.type == "execute" %}
+<div class="containerx">
+    <label class="switch">
+        <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}}
+            type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <div class="buttoninfo">
         <p2>
-        Type: {{controller.type}}<br>
-        Name: {{controller.name}}<br>
-        Pinnumber: {{controller.pinnumber}}<br>
+            <b>Type:</b> {{controller.type}}<br>
+            <b>Name:</b> {{controller.name}}<br>
+            <b>Pinnumber:</b> {{controller.pinnumber}}<br>
+            
         </p2>
-        <input type="text" id={{controller.name}}>
+        <br>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">SID</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
+
+        <div class="delete">
         <form method="POST" action="/">
             <input name="name" type="hidden" value="{{ controller.name }}">
-            <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;"/>
-        </form>
-        
-    </div>
-
-    {% endif %}
-    {% if controller.type == "slider" %}
-    <div class="containerx">
-        <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="range" min={{controller.min}} max={{controller.max}} value=0
-            class="slidebar" id="myRange">
-        <p id={{controller.pinnumber}}> 0 </p>
-        <form method="POST" action="/">
-            <input name="name" type="hidden" value="{{ controller.name }}">
-            <button type="submit">delete</button>
+            <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
         </form>
     </div>
-    {% endif %}
-    {% endfor %}
-    <a href="/addcontroller">add controller</a>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+</div>
+</div>
 
-            // Connect to websocket
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+{% endif %}
+{% if controller.type == "slider" %}
+<div class="containerx">
+    <input data-pin={{controller.pinnumber}} data-type={{controller.type}} data-name={{controller.name}} type="range"
+        min={{controller.min}} max={{controller.max}} value=0 class="slidebar" id="myRange">
+    <p id={{controller.pinnumber}}> 0 </p>
+    <form method="POST" action="/">
+        <input name="name" type="hidden" value="{{ controller.name }}">
+        <button type="submit">delete</button>
+    </form>
+</div>
+{% endif %}
+{% endfor %}
+<a href="/addcontroller">add controller</a>
 
-            // When connected, configure button
-            socket.on('connect', () => {
-                // declare some variables
-                var outputslider = document.getElementById("outputslider");
-                // button should emit a "submit" event
-                document.querySelectorAll('input').forEach(input => {
-                    input.oninput = () => {
-                        // checkbox
-                        if (input.type == "checkbox" && input.checked == true) {
-                            var selection = "HIGH";
-                            emitevent(input)
-                        }
 
-                        else if (input.type == "checkbox" && input.checked == false) {
-                            var selection = "LOW";
-                            emitevent(input)
-                        }
-                        // slider
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 containerx">
+            <label class="switch">
+                <input data-pin=1 type="checkbox">
+                <span class="slider round"></span>
+            </label>
 
-                        else if (input.type == "range"){
-                            var selection = input.value;
-                            emitevvent(input)
-                            
-                            document.getElementById(String(input.dataset.pin)).innerHTML = selection;
-                            //$("#outputslider",$(this).parent()).html(selection); 
-                            //outputslider.innerHTML = input.value;
-                        }
-                        function emitevent(input) {
-                            // other data of pin
-                            var pin = input.dataset.pin;
-                            var type = input.dataset.type;
-                            var name = input.dataset.name
-                            var sid = document.getElementById(name).value
-                            socket.emit('submitswitch', {'name': name, 'type': type, 'value': selection, 'pin': pin, 'sid': sid}); //event name, json object
-                        }
-                    };
-                });
-            });
 
-            // When a new vote is announced, add to the unordered list
-            socket.on('announce switch', data => {
-                const li = document.createElement('li');
-                li.innerHTML = `switch history: ${data.selection}`;
-                document.querySelector('#switches').append(li);
+            Type: toggle<br>
+            Name: toggle name<br>
+            Pinnumber: 12<br>
+
+            <input type="text" id=id>
+
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="switch">
+                <input data-pin=1 type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="switch">
+                <input data-pin=1 type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="switch">
+                <input data-pin=1 type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Connect to websocket
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+        // When connected, configure button
+        socket.on('connect', () => {
+            // declare some variables
+            var outputslider = document.getElementById("outputslider");
+            // button should emit a "submit" event
+            document.querySelectorAll('input').forEach(input => {
+                input.oninput = () => {
+                    // checkbox
+                    if (input.type == "checkbox" && input.checked == true) {
+                        var selection = "HIGH";
+                        emitevent(input)
+                    }
+
+                    else if (input.type == "checkbox" && input.checked == false) {
+                        var selection = "LOW";
+                        emitevent(input)
+                    }
+                    // slider
+
+                    else if (input.type == "range") {
+                        var selection = input.value;
+                        emitevvent(input)
+
+                        document.getElementById(String(input.dataset.pin)).innerHTML = selection;
+                        //$("#outputslider",$(this).parent()).html(selection); 
+                        //outputslider.innerHTML = input.value;
+                    }
+                    function emitevent(input) {
+                        // other data of pin
+                        var pin = input.dataset.pin;
+                        var type = input.dataset.type;
+                        var name = input.dataset.name
+                        var sid = document.getElementById(name).value
+                        socket.emit('submitswitch', { 'name': name, 'type': type, 'value': selection, 'pin': pin, 'sid': sid }); //event name, json object
+                    }
+                };
             });
         });
-    </script>
-    <!--
+
+        // When a new vote is announced, add to the unordered list
+        socket.on('announce switch', data => {
+            const li = document.createElement('li');
+            li.innerHTML = `switch history: ${data.selection}`;
+            document.querySelector('#switches').append(li);
+        });
+    });
+</script>
+<!--
     <script> // slider script
         var slider = document.getElementById("myRange");
         var output = document.getElementById("demo");

@@ -36,7 +36,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #b3ff99;
 }
 
 input:focus + .slider {
@@ -98,17 +98,41 @@ input:checked + .slider:before {
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;
-  background: #6dd7e6;
+  background: #FFCB9A;
   padding: 20px;
   margin: 20px;
   height: 200px;
   max-width: 100%;
+  position: relative;
+  display: block;
 }
 
-div p2 {
+.containermeas {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: #FFCB9A;
+  padding: 20px;
+  margin: 20px;
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
+
+.buttoninfo {
+  width: 50%;
+  right: 2px;
+  float: right;
+}
+.buttoninfo p2 {
   font-size: 20px;
   color: #ffffff;
-  margin-left: 20%;
+}
+
+.delete {
+  position: absolute;
+  right: 40px;
+  top: 25px;
 }
 
 img:hover {
@@ -117,13 +141,13 @@ img:hover {
 }
 
 @media (min-width: 1200px) {
-  .containerx {
+  .containerx, .containermeas {
     width: 45%;
     display: inline-block;
   }
 }
 @media (min-width: 2300px) {
-  .containerx {
+  .containerx, containermeas {
     width: 30%;
     display: inline-block;
   }

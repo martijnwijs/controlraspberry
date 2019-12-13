@@ -1,6 +1,9 @@
 import socketio
 import time
- 
+from random import randint
+import datetime
+
+
 sio = socketio.Client()
 
 @sio.event
@@ -29,16 +32,19 @@ try:
 except KeyboardInterrupt:
     quit()
 
-'''
+
 x=0
 y=1.
 while True:
-    x = x + 1
-    y =  y*1.75
+    now = datetime.datetime.now()
+    hour = '{:02d}'.format(now.hour)
+    minute = '{:02d}'.format(now.minute)
+    second = '{:02d}'.format(now.second)
+    x = '{}-{}-{}'.format(hour, minute, second)
+    y = randint(0, 10)
 
     data = (x,y)
     print(data)
     
-    sio.emit("updatedata", {'measurementname': 'hy','time': x, 'value': y})
+    sio.emit("updatedata", {'measurementname': 'sdf','time': x, 'value': y})
     time.sleep(1)
-'''

@@ -130,7 +130,7 @@ def measurements():
     if request.method == "POST":
         name = request.form['name']
         measurement = Measurement.query.filter(Measurement.name == name).delete()
-        Measurement.query.filter(and_(Measurement.name == name, Measurement.user == session['user'])).all().delete()
+        Measurement.query.filter(and_(Measurement.name == name, Measurement.user == session['user'])).delete()
         db.session.commit()
         return redirect("/measurements")
 
@@ -221,7 +221,6 @@ def updatedata(data):
 @socketio.on("recording")
 def recording(data):
     print("recording")
-
     filename = str(data['measurementname'])+".csv"
     print(filename)
     file = open(filename, "a+")

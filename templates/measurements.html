@@ -4,12 +4,14 @@
 <!-- generate containers for measurements from database-->
 {% for measurement in measurements  %}
 {{measurement.name}}
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id='{{measurement.name}}'></canvas>
-    record: <input data-record='{{measurement.name}}' type="checkbox">
+<div class="containermeas">
+    <div class="chart-container" style="position: relative; height:40vh; width:100%">
+        <canvas id='{{measurement.name}}'></canvas>
+    </div>
+    record: <input data-record='{{measurement.name}}' type="checkbox"> 
     <form method="POST" action="/measurements">
         <input name="name" type="hidden" value="{{ measurement.name }}">
-        <button type="submit">delete</button>
+        <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
     </form>
 </div>
 {% endfor %}
@@ -24,7 +26,7 @@
         // if receiving data add to graph, and remove first datapoint
         socket.on('updatedata', data => {
             addData(eval(data['measurementname']), data['time'], data['value'])
-            
+
             removeData(eval(data['measurementname']))
             updataData(eval(data['measurementname']))
 
@@ -32,7 +34,7 @@
             document.querySelectorAll('input').forEach(input => {
                 if (input.type == "checkbox" && input.checked == true) {
                     measurementname = input.dataset.record
-                    socket.emit('recording', {'measurementname': measurementname, 'time': data['time'], 'value': data['value']})
+                    socket.emit('recording', { 'measurementname': measurementname, 'time': data['time'], 'value': data['value'] })
                 }
 
             })
@@ -44,14 +46,14 @@
                 //alert("works")
                 // start recording
                 //if (input.type == "checkbox" && input.checked == true) {
-                   // measurementname = input.dataset.record
-                    //socket.emit('startrecording', { 'measurementname': measurementname });
+                // measurementname = input.dataset.record
+                //socket.emit('startrecording', { 'measurementname': measurementname });
                 //}
                 // stop recording 
                 if (input.type == "checkbox" && input.checked == false) {
                     filename = input.dataset.record.concat('.csv')
                     alert(filename)
-                    window.location.href="download/".concat(filename);
+                    window.location.href = "download/".concat(filename);
                 }
             }
         })
@@ -78,7 +80,14 @@
         },
 
         // Configuration options go here
-        options: { maintainAspectRatio: false }
+        options: {
+            maintainAspectRatio: false,
+            animation: { duration: 0 },
+            title: {
+                fontSize: 20,
+                display: true,
+            }
+        }
     });
     {% endfor %}
 
