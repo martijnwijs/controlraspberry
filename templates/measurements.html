@@ -8,20 +8,26 @@
     <div class="chart-container" style="position: relative; height:40vh; width:100%">
         <canvas id='{{measurement.name}}'></canvas>
     </div>
-    record: <input data-record='{{measurement.name}}' type="checkbox"> 
+    record: <input data-record='{{measurement.name}}' type="checkbox">
+
     <form method="POST" action="/measurements">
         <input name="name" type="hidden" value="{{ measurement.name }}">
         <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
     </form>
+    <button data-record='{{measurement.name}}' class="notRec" id="recButton" style="border-radius: 35px; overflow: hidden;"></button>
 </div>
+
+
 {% endfor %}
+
+
+
 <script>
     //var updatecount = 0
     document.addEventListener('DOMContentLoaded', () => {
 
         // Connect to websocket
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
 
         // if receiving data add to graph, and remove first datapoint
         socket.on('updatedata', data => {
@@ -33,13 +39,46 @@
             // if recording send data 
             document.querySelectorAll('input').forEach(input => {
                 if (input.type == "checkbox" && input.checked == true) {
+
+                    // find measurementname and emit data
                     measurementname = input.dataset.record
                     socket.emit('recording', { 'measurementname': measurementname, 'time': data['time'], 'value': data['value'] })
                 }
+                
 
             })
+
+            // if recording send data second try:
+            document.querySelectorAll('button').forEach(button => {
+                if ((button.classList.contains('Rec'))) {
+                     // find measurementname and emit data
+                     measurementname = input.dataset.record
+                    socket.emit('recording', { 'measurementname': measurementname, 'time': data['time'], 'value': data['value'] })
+                }
+            })
+
+
         });
 
+        // record function second try:
+        document.querySelectorAll('button').forEach(button => {
+            button.onclick = () => { 
+                alert("clicked!")      
+                if ( button.classList.contains('notRec')) {
+                    button.classList.remove('notRec')
+                    button.classList.add('Rec');
+                    alert("hoi")
+                }
+                else if ( button.classList.contains('Rec')) {
+                    button.classList.remove('Rec')
+                    button.classList.add('notRec');
+                    filename = button.dataset.record.concat('.csv')
+                    alert(filename)
+                    window.location.href = "download/".concat(filename);
+                }
+            }
+        })
+        
         // record function sends json to application.py to activate function
         document.querySelectorAll('input').forEach(input => {
             input.oninput = () => {
@@ -57,6 +96,7 @@
                 }
             }
         })
+
 
     })
 
