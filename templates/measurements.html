@@ -8,9 +8,6 @@
     <div class="chart-container" style="position: relative; height:40vh; width:100%">
         <canvas id='{{measurement.name}}'></canvas>
     </div>
-    <!--to be deleted
-    record: <input data-record='{{measurement.name}}' type="checkbox">
-    -->
     <div class="deletemeas">
     <form method="POST" action="/measurements">
         <input name="name" type="hidden" value="{{ measurement.name }}">
@@ -20,13 +17,9 @@
     Record: <button data-record='{{measurement.name}}' class="notRec" id="recButton" style="border-radius: 35px; overflow: hidden;"></button>
 </div>
 
-
 {% endfor %}
 
-
-
 <script>
-    //var updatecount = 0
     document.addEventListener('DOMContentLoaded', () => {
 
         // Connect to websocket
@@ -34,24 +27,13 @@
 
         // if receiving data add to graph, and remove first datapoint
         socket.on('updatedata', data => {
+            
             addData(eval(data['measurementname']), data['time'], data['value'])
 
             removeData(eval(data['measurementname']))
             updataData(eval(data['measurementname']))
 
-            // if recording send data 
-            document.querySelectorAll('input').forEach(input => {
-                if (input.type == "checkbox" && input.checked == true) {
-
-                    // find measurementname and emit data
-                    measurementname = input.dataset.record
-                    socket.emit('recording', { 'measurementname': measurementname, 'time': data['time'], 'value': data['value'] })
-                }
-                
-
-            })
-
-            // if recording send data second try:
+            // if recording send data
             document.querySelectorAll('button').forEach(button => {
                 if ((button.classList.contains('Rec'))) {
                      // find measurementname and emit data
@@ -63,7 +45,7 @@
 
         });
 
-        // record function second try:
+        // record function
         document.querySelectorAll('button').forEach(button => {
             button.onclick = () => {     
                 if ( button.classList.contains('notRec')) {
@@ -75,31 +57,10 @@
                     button.classList.remove('Rec')
                     button.classList.add('notRec');
                     filename = button.dataset.record.concat('.csv')
-                    alert(filename)
                     window.location.href = "download/".concat(filename);
                 }
             }
         })
-        
-        // record function sends json to application.py to activate function
-        document.querySelectorAll('input').forEach(input => {
-            input.oninput = () => {
-                //alert("works")
-                // start recording
-                //if (input.type == "checkbox" && input.checked == true) {
-                // measurementname = input.dataset.record
-                //socket.emit('startrecording', { 'measurementname': measurementname });
-                //}
-                // stop recording 
-                if (input.type == "checkbox" && input.checked == false) {
-                    filename = input.dataset.record.concat('.csv')
-                    alert(filename)
-                    window.location.href = "download/".concat(filename);
-                }
-            }
-        })
-
-
     })
 
     // generate charts for measurements
@@ -144,7 +105,6 @@
 
     // function to remove first datapoint from graph
     function removeData(chart) {
-
         if (chart.data.datasets[0].data.length >= 10) {
             chart.data.labels.shift();
             chart.data.datasets[0].data.shift();
@@ -155,8 +115,6 @@
     function updataData(chart) {
         chart.update();
     }
-
-
 </script>
 
 {% endblock %}

@@ -47,6 +47,10 @@ Make sure you fill in every field!
 {% if message2 is defined %}
 Make sure that the min and max duty cycle are positive and differ!
 {% endif %}
+{% if message3 is defined %}
+Please give a unique name to this controller.
+{% endif %}
+
 <script>
     // function to show extra forms when the user selects slider
     function showhide() {
@@ -58,4 +62,5 @@ Make sure that the min and max duty cycle are positive and differ!
         }
     }
 </script>
+
 {% endblock %}

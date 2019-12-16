@@ -18,12 +18,14 @@ Session(app)
 # Link the Flask app with the database (no Flask app is actually being run yet).
 db.init_app(app)
 
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+
 def main():
     # Create tables based on each table definition in `models`
     db.create_all()
 
+ # Allows for command line interaction with Flask application
 if __name__ == "__main__":
-    # Allows for command line interaction with Flask application
     with app.app_context():
         main()
         print("done")

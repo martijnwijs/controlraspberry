@@ -1,58 +1,6 @@
-<!--
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <title>title</title>
-
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-
-</head>
-
-<body>
-    -->
-
 {% extends "template.html" %}
 {% block body %}
 
-<!--
-<ul id="switches">
-</ul>
-<hr>
-
-
-
-<div class="containerx">
-    <label class="switch">
-        <input data-pin=1 type="checkbox">
-        <span class="slider round"></span>
-    </label>
-
-</div>
-<div class="containerx">
-    <label class="switch">
-        <input data-pin=2 type="checkbox">
-        <span class="slider round"></span>
-    </label>
-</div>
-
-
-
-<div class="containerx">
-    <input data-pin=3 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
-    <p id="3">50</p>
-</div>
-
-
-<div class="containerx">
-    <input data-pin=4 type="range" min="1" max="100" value="50" class="slidebar" id="myRange">
-    <p id="4">50</p>
-</div>
--->
 <!-- generate the different controllers-->
 {% for controller in controllers %}
 {% if controller.type == "toggle" or controller.type == "execute" %}
@@ -81,14 +29,14 @@
         </div>
     </div>
     <div class="delete">
-        <form method="POST" action="/">
+        <form method="POST" action="/controller">
             <input name="name" type="hidden" value="{{ controller.name }}">
             <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
         </form>
     </div>
-
 </div>
 {% endif %}
+
 
 {% if controller.type == "slider" %}
 <div class="containerx">
@@ -102,6 +50,7 @@
             <b>Pinnumber:</b> {{controller.pinnumber}}
         </p2>
     </div>
+   
     <div class="buttoninfosid">
 
         <div class="input-group mb-3">
@@ -113,20 +62,20 @@
         </div>
     </div>
     <div class="delete">
-        <form method="POST" action="/">
+        <form method="POST" action="/controller">
             <input name="name" type="hidden" value="{{ controller.name }}">
             <input class="image" type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
         </form>
     </div>
 </div>
-
-</div>
 {% endif %}
 {% endfor %}
-<br>
-<a href="/addcontroller"><p1>add controller</p1></a>
 
--->
+<br>
+<a href="/addcontroller">
+    <p1>add controller</p1>
+</a>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -141,50 +90,39 @@
             document.querySelectorAll('input').forEach(input => {
                 input.oninput = () => {
 
-                    // checkbox
+                    // toggle ON
                     if (input.type == "checkbox" && input.checked == true) {
                         var selection = "HIGH";
-                        emittoserver(input, selection)
+                        emittoserver(input, selection);
                     }
-
+                    // toggle OFF 
                     else if (input.type == "checkbox" && input.checked == false) {
                         var selection = "LOW";
-                        emittoserver(input, selection)
+                        emittoserver(input, selection);
                     }
 
-                    // slider
+                    // slider range
                     else if (input.type == "range") {
                         var selection = input.value;
                         document.getElementById(String(input.dataset.pin)).innerHTML = selection;
-                        emittoserver(input, selection)
+                        emittoserver(input, selection);
                     }
-
+                    
+                    // function that emits the controller data to the server
                     function emittoserver(input, selection) {
                         var pin = input.dataset.pin;
                         var type = input.dataset.type;
                         var name = input.dataset.name;
                         var sid = document.getElementById(name).value;
-                        socket.emit('submitswitch', { 'name': name, 'type': type, 'value': selection, 'pin': pin, 'sid': sid }); //event name, json object   
+                        socket.emit('submitswitch', { 'name': name, 'type': type, 'value': selection, 'pin': pin, 'sid': sid });   
                     }
                 };
             });
         });
     })
-        
 
 </script>
-<!--
-    <script> // slider script
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value; // Display the default slider value
 
-        // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-        }
-    </script>
--->
 {% endblock %}
 
 </html>
