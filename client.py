@@ -35,16 +35,26 @@ except KeyboardInterrupt:
 
 x=0
 y=1.
-while True:
-    now = datetime.datetime.now()
-    hour = '{:02d}'.format(now.hour)
-    minute = '{:02d}'.format(now.minute)
-    second = '{:02d}'.format(now.second)
-    x = '{}-{}-{}'.format(hour, minute, second)
-    y = randint(0, 10)
 
-    data = (x,y)
-    print(data)
+# handling measurements
+def measure():
+    while True:
+        now = datetime.datetime.now()
+        hour = '{:02d}'.format(now.hour)
+        minute = '{:02d}'.format(now.minute)
+        second = '{:02d}'.format(now.second)
+        x = '{}-{}-{}'.format(hour, minute, second)
+
+        # get here your Y value from a sensor or something else...
+        y = randint(0, 10)
     
-    sio.emit("updatedata", {'measurementname': 'sdf','time': x, 'value': y})
-    time.sleep(1)
+        # fill in here your measurementname, it should be the same as the name of the measurementname in the App
+        measurementname = "sdf"
+
+        # fill in here your timestep between two measurements.
+        timestep = 1
+        print(y)
+        sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y})
+        time.sleep(timestep) # change this to change the time interval between two data points
+
+measure()

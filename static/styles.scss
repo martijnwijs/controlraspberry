@@ -8,8 +8,8 @@ $cloud: #693D3D;
 .switch {
     position: relative;
     display: inline-block;
-    width: 220px;
-    height: 150px;
+    width: 110px;
+    height: 75px;
   }
   
   .switch input { 
@@ -33,10 +33,10 @@ $cloud: #693D3D;
   .slider:before {
     position: absolute;
     content: "";
-    height: 118px;
-    width: 118px;
-    left: 16px;
-    bottom: 16px;
+    height: 59px;
+    width: 59px;
+    left: 8px;
+    bottom: 8px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -51,9 +51,9 @@ $cloud: #693D3D;
   }
   
   input:checked + .slider:before {
-    -webkit-transform: translateX(75px);
-    -ms-transform: translateX(75px);
-    transform: translateX(75px);
+    -webkit-transform: translateX(37px);
+    -ms-transform: translateX(37px);
+    transform: translateX(37px);
   }
   
 
@@ -111,7 +111,7 @@ $cloud: #693D3D;
     border-radius: 5px;
     background: $desert;
     padding: 20px;
-    margin: 20px;
+    margin-top: 20px;
     height: 200px;
     max-width: 100%;
     position: relative;
@@ -126,15 +126,27 @@ $cloud: #693D3D;
     border-radius: 5px;
     background: $desert;
     padding: 20px;
-    margin: 20px;
+    margin-top: 20px;
     max-width: 100%;
     position: relative;
     display: block;
   }
   
+  // container form
+  .containerform {
+    display: none;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    background: $desert;
+    padding: 20px;
+    margin: 20px;
+    max-width: 100%;
+    position: relative;
+    display: block;
+  }
  .buttoninfo {
-    width: 50%;
-    right: 2px;
+    margin-right: 10%;
+    
     float: right;
 
     p2 {
@@ -143,22 +155,59 @@ $cloud: #693D3D;
       
     }
   }
+
+  .buttoninfoslider {
+
+    float: left;
+
+    p2 {
+      font-size: 20px;
+      color: #ffffff;
+    }
+  }
+
+  .buttoninfosid {
+    position: absolute;
+    left: 20px;
+    bottom: 0px;
+    width: 80%;
+  }
+
+  .buttoninfosidtoggle {
+    position: absolute;
+    left: 20px;
+    bottom: 0px;
+    width: 80%;
+  }
+
+  .slidenumber {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
 .delete {
   position: absolute;
-  right: 40px;
-  top: 25px;
+  right: 3px;
+  bottom: 3px;
 }
 
-  img:hover {
+.deletemeas {
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
+}
+
+.image:hover {
     filter: hue-rotate(180deg);
     -webkit-filter: hue-rotate(180deg);
   }
 
-@media (min-width:1200px){
+@media (min-width:800px){
  
   .containerx, .containermeas {
     width: 45%;
-    
+    margin-right: 20px;
     display:inline-block;
   }
 }
@@ -173,10 +222,8 @@ $cloud: #693D3D;
 }
 
 
-
-
 // record button
-button {
+#recButton {
 	width: 35px;
 	height: 35px;
 	font-size: 0;

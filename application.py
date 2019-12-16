@@ -6,14 +6,13 @@ import csv
 
 from flask import Flask, jsonify, render_template, request, redirect, send_file, session,  current_app
 from flask_socketio import SocketIO, emit
+
+# object oriented mapping
 from models import *
 from create import *
 
 # hash password
 from hash import*
-
-#app = Flask(__name__) # Instantiate a new web application called `app`, with `__name__` representing the current file
-
 
 # what is this
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -22,16 +21,11 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 # start socketio
 socketio = SocketIO(app)
 
-#function that checks  if the user is logged in:
+#function that checks if the user is logged in
 def logged_in():
-    #check if user is logged in
     if session.get("user", None) is not None: 
         return True
     return False
-# handles controller page
-
-#global variables
-measurementname = ''
 
 # handles login
 @app.route("/login", methods=["GET", "POST"])

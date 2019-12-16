@@ -1,13 +1,55 @@
+{% extends "template.html" %}
+{% block body %}
+
+
+<br>
+
 <form method="POST" action="/addcontroller">
-    Type: <select name="type">
-    <option value="slider" selected>slider</option>
-    <option value="toggle">toggle</option>
-    <option value="execute">execute code</option>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Name</label>
+        <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Rasperry">
+
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Type</label>
+        <select name="type" id="type" class="form-control" id="exampleFormControlSelect1" oninput="showhide()">
+            <option>toggle</option>
+            <option>slider</option>
+            <option>execute code</option>
         </select>
-    Pinnumber<input name="pinnumber" type="number" min="1" max="50" value="1">
-    Min: <input name="min" type="number" min="0" max="100" value="0">
-    Max: <input name="max" type="number" min="1" max="100" value="10">
-    The slider values will be mapped between 0 and 255
-    Name: <input name="name" type="text">
-    <input type="submit">
-    </form>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Pinnumber</label>
+        <input name="pinnumber" type="number" min="0" max="41" value="0" class="form-control"
+            id="exampleFormControlInput1">
+    </div>
+    <div id="hideshow" style="display: none;">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">min duty cycle (%)</label>
+            <input name="min" type="number" min="0" max="41" value="0" class="form-control"
+                id="exampleFormControlInput1">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">max duty cycle (%)</label>
+            <input name="max" type="number" min="0" max="41" value="0" class="form-control"
+                id="exampleFormControlInput1">
+        </div>
+    </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Add controller</button>
+</form>
+
+<script>
+    // function to show extra forms when the user selects slider
+    function showhide() {
+        if (document.getElementById('type').value === "slider") {
+            document.getElementById('hideshow').style.display = "block"
+        }
+        else if (document.getElementById('type').value != "slider") {
+            document.getElementById('hideshow').style.display = "none"
+        }
+    }
+</script>
+{% endblock %}
