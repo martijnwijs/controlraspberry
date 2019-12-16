@@ -7,16 +7,14 @@ import csv
 from flask import Flask, jsonify, render_template, request, redirect, send_file, session,  current_app
 from flask_socketio import SocketIO, emit
 
-# object oriented mapping
+# object relational mapping and initialization of app
 from models import *
 from create import *
 
 # hash password
 from hash import*
 
-# what is this
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-
 
 # start socketio
 socketio = SocketIO(app)
@@ -98,51 +96,60 @@ def register():
 
 @app.route("/", methods=["GET", "POST"]) 
 def index():
+    if not logged_in():
+        return redirect("/login")
     if request.method == "GET":
-        if not logged_in():
-            return redirect("/login")
         # get all current controllers
         controllers = Controller.query.filter(Controller.user == session['user']).all()
         return render_template("index.html", controllers=controllers)
+
     if request.method == "POST":
         name = request.form['name']
-        controller = Controller.query.filter(Controller.name == name).delete()
-        #print(controller)
-        #db.session.delete(controller)
+        Controller.query.filter((Controller.name == name) & (Controller.user == session['user'])).delete()
         db.session.commit()
         return redirect("/")
 
 # handles measurement page
 @app.route("/measurements", methods=["GET", "POST"])
 def measurements():
+    if not logged_in():
+        return redirect("/login")
     if request.method == "GET":
-        if not logged_in():
-            return redirect("/login")
-
-        measurements = Measurement.query.all()
+        measurements = Measurement.query.filter(Measurement.user == session['user']).all()
         return render_template("measurements.html", measurements=measurements)
+
     if request.method == "POST":
         name = request.form['name']
-        measurement = Measurement.query.filter(Measurement.name == name).delete()
-        Measurement.query.filter(and_(Measurement.name == name, Measurement.user == session['user'])).delete()
+        Measurement.query.filter((Measurement.name == name) & (Measurement.user == session['user'])).delete()
         db.session.commit()
         return redirect("/measurements")
 
 @app.route("/addcontroller", methods=["GET", "POST"]) 
 def addcontroller():
+    if not logged_in():
+        return redirect("/login")
     if request.method == "GET":
-        if not logged_in():
-            return redirect("/login")
         return render_template("addcontroller.html")
 
     if request.method == "POST":
+        if not logged_in():
+            return redirect("/login")
         type = request.form.get("type")
         name = request.form.get("name")
         pinnumber = request.form.get("pinnumber")
         min = request.form.get("min")
         max = request.form.get("max")
+        print("Name: ",name)
 
-        # add to database
+        # make sure that the user has filled in the forms
+        if type == "" or name == "" or pinnumber == "":
+            return render_template("addcontroller.html", message=True)
+
+        # make sure min and max are different
+        if type == "slider" and min == max:
+            return render_template("addcontroller.html", message2=True)
+
+        # add to database and redirect
         controller = Controller(type=type, name=name, pinnumber=pinnumber, min=min, max=max, user=session['user'])
         db.session.add(controller)
         db.session.commit()
@@ -150,12 +157,12 @@ def addcontroller():
 
 @app.route("/addmeasurement", methods=["GET", "POST"]) 
 def addmeasurement():
+    if not logged_in():
+        return redirect("/login")
     if request.method == "GET":
-        if not logged_in():
-            return redirect("/login")
         return render_template("addmeasurement.html")
+        
     if request.method == "POST":
-
         name = request.form.get("name")
         pinnumber = request.form.get("pinnumber")
         ylabel = request.form.get("label")
@@ -170,21 +177,25 @@ def addmeasurement():
 def download_file(filename):
     if not logged_in():
         return redirect("/login")
+    file_path = str(filename)
 
-    file_path = filename
-    file_handle = open(file_path, 'r')
+    # handles filerequests that don't exist
+    try:
+        file_handle = open(file_path, 'r')
+    except FileNotFoundError:
+        return redirect("/measurements")
 
-    # This *replaces* the `remove_file` + @after_this_request code above
+    # store file temporary
     def stream_and_remove_file():
         yield from file_handle
         file_handle.close()
         os.remove(file_path)
-
     return current_app.response_class(
         stream_and_remove_file(),
         headers={f'Content-Disposition': 'attachment; filename: {filename}; mimetype=text/csv', 'Content-Type': 'text/csv'}
     )
 
+# handles setup page
 @app.route("/setup") 
 def setup():
     if not logged_in():
@@ -195,50 +206,26 @@ def setup():
 @socketio.on("submitswitch") 
 def vote(data):
     print(data)
-
     # split id's to make broadcasting to more users possible
     listid = data['sid'].split(',')
     for id in listid:
         emit("announceswitch", data, room=id)
 
-@socketio.on("test") #from python script
-def nietslim(data):
-    print("hallo")
-
 # when receiving data updates 
 @socketio.on("updatedata")
 def updatedata(data):
-    print("data: ", data)
     emit("updatedata", data, broadcast=True)
 
 # when user starts recording
 @socketio.on("recording")
 def recording(data):
-    print("recording")
     filename = str(data['measurementname'])+".csv"
-    print(filename)
+    
     file = open(filename, "a+")
     writer = csv.writer(file)
     writer.writerow((data['time'], data['value']))
     file.close()
-    #return measurementname
 
-# when user ends recording
-#@socketio.on("stoprecording")
-#def stoprecording(data):
-    #print("stoprecording")
-    #filename = str(data['measurementname'])+".csv"
-    #return send_file(filename)
-
-    '''
-    try:
-        filename = str(data['measurementname'])+".csv"
-        with open(filename, 'r') as file:
-            pass
-        
-    except FileNotFoundError:
-        pass
-        '''
         
 
     
