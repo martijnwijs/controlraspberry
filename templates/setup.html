@@ -1,14 +1,16 @@
 {% extends "template.html" %}
 {% block body %}
 <br>
+<br>
 This app is meant to control actuators or code running on your raspberry PI.
 With this app you can also visualise measurements made by your raspberry PI, or by any other source and record them.
 to make it all work, follow these instructions:
 <br>
 <br>
 <ul class="list-group">
-    <ol class="list-group-item">1. Make sure your raspberry is connected to the internet</ol>
-    <li class="list-group-item">2. Create a program on your raspberry Pi by pasting the following code: <br><br>
+    <ol class="list-group-item">1. Make sure your Raspberry PI is connected to the internet</ol>
+    <li class="list-group-item">2. Create a program on your raspberry PI by pasting the following code: <br><br>
+
         <!-- HTML generated using hilite.me -->
         <div
             style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
@@ -39,8 +41,6 @@ sio <span style="color: #333333">=</span> socketio<span style="color: #333333">.
         time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">1</span>)
 
 <span style="color: #888888"># def yourcontrollername(value): </span>
-   
-
 <span style="color: #888888"># connection and disconnection             </span>
 <span style="color: #555555; font-weight: bold">@sio.event</span>
 <span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">connect</span>():
@@ -99,66 +99,82 @@ sio<span style="color: #333333">.</span>connect(<span style="background-color: #
 </ul>
 <br>
 <br>
-For controlling an actuator on the raspberry PI do the following:
-<br>
-<br>
 
+
+<b>For controlling a 1 pins actuator on the raspberry PI do the following:</b>
+<br>
+<br>
 <ul class="list-group">
     <li class="list-group-item">1. Make sure to connect your actuator to the raspberry PI in the right way.</li>
     <li class="list-group-item">2. execute the code on your raspberry PI and copy the SID which will be printed in your
         terminal</li>
-    <li class="list-group-item">3. Add a controller in the app and link it to the same output pin as your actuator is
+    <li class="list-group-item">3. Add a controller in the app and link it to the same output pin (BCM) as your actuator
+        is
         attached to.</li>
-    <li class="list-group-item">4. paste the SID in your controller. now you should be able to control a actuator</li>
-    <li class="list-group-item">5. Add a controller in the app and link it to the same output pin as your actuator is
-        attached to.</li>
+    <li class="list-group-item">4. paste the SID in your controller. You should be able now to control an actuator</li>
+    <li class="list-group-item">Hint: you can also control multiple raspberies with one controller by filling in multiple SID's seperated by a comma (,)</li>
 </ul>
 <br>
 <br>
-For executing code on the Raspberry PI, (or any other device), do the following:
+
+
+<b>For executing code on the Raspberry PI, (or any other device), do the following:</b>
+<br>
+<br>
 <ul class="list-group">
-    <li class="list-group-item">1. in the program on your raspberry PI, create a method.</li>
-    <li class="list-group-item">2. Create the code you want to execute inside this method. Because a toggle switch is used
-        for the execution. you can
-        split
-        your code in two parts handling turning the toggle "ON" and one handles "OFF" as you like.</li>
-    <li class="list-group-item">3. Add a controller in the app and choose "execute code" for type. Make sure you give the
+    <li class="list-group-item">1. in the program on your raspberry PI, create a method as showed in the example method
+        from the pasted code <b>def blink(value):</b></li>
+    <li class="list-group-item">2. Create the code you want to execute inside this method. Because a toggle switch is
+        used
+        for the execution. you can possibly split your code in two parts handling turning the toggle "ON" and "OFF" as
+        you like.</li>
+    <li class="list-group-item">3. Add a controller in the app and choose "execute code" as type. Make sure you give the
         controller the same name as the
         name of the method you have just written to execute code.</li>
-    <li class="list-group-item">4. paste the SID in your controller. now you should be able to execute the code.</li>
+    <li class="list-group-item">4. run the program and paste the SID in your controller. now you should be able to
+        execute the code.</li>
 </ul>
 <br>
 <br>
-to handle measurements do the following:
+
+
+<b>to handle measurements do the following:</b>
 <br><br>
 <ul class="list-group">
     <li class="list-group-item">1. Add the code below to the program on your raspberry PI and change the Yvalue,
-        timestep and name<br>
+        timestep and name<br><br>
         <!-- HTML generated using hilite.me -->
         <div
             style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
             <pre style="margin: 0; line-height: 125%"><span style="color: #888888"># handling measurements</span>
+<span style="color: #008800; font-weight: bold">def</span> <span style="color: #0066BB; font-weight: bold">measure</span>():
 <span style="color: #008800; font-weight: bold">while</span> <span style="color: #007020">True</span>:
-now <span style="color: #333333">=</span> datetime<span style="color: #333333">.</span>datetime<span style="color: #333333">.</span>now()
-hour <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>hour)
-minute <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>minute)
-second <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>second)
-x <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{}-{}-{}&#39;</span><span style="color: #333333">.</span>format(hour, minute, second)
+    now <span style="color: #333333">=</span> datetime<span style="color: #333333">.</span>datetime<span style="color: #333333">.</span>now()
+    hour <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>hour)
+    minute <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>minute)
+    second <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{:02d}&#39;</span><span style="color: #333333">.</span>format(now<span style="color: #333333">.</span>second)
+    x <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&#39;{}-{}-{}&#39;</span><span style="color: #333333">.</span>format(hour, minute, second)
 
-<span style="color: #888888"># get here your Y value from a sensor or something else...</span>
-y <span style="color: #333333">=</span> randint(<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">10</span>)
+    <span style="color: #888888"># get here your Y value from GPIO sensor data or something else...</span>
+    y <span style="color: #333333">=</span> randint(<span style="color: #0000DD; font-weight: bold">0</span>, <span style="color: #0000DD; font-weight: bold">10</span>)
 
-<span style="color: #888888"># fill in here your measurementname, it should be the same as the name of the measurementname in the App</span>
-measurementname <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;&quot;</span>
-sio<span style="color: #333333">.</span>emit(<span style="background-color: #fff0f0">&quot;updatedata&quot;</span>, {<span style="background-color: #fff0f0">&#39;measurementname&#39;</span>: <span style="background-color: #fff0f0">&#39;sdf&#39;</span>,<span style="background-color: #fff0f0">&#39;time&#39;</span>: x, <span style="background-color: #fff0f0">&#39;value&#39;</span>: y <span style="background-color: #fff0f0">&#39;sid&#39;</span>: sio<span style="color: #333333">.</span>sid})
-time<span style="color: #333333">.</span>sleep(<span style="color: #0000DD; font-weight: bold">1</span>) <span style="color: #888888"># change this to change the time interval between two data points</span>
+    <span style="color: #888888"># fill in here your measurementname, it should be the same as the name of the measurementname in the App</span>
+    measurementname <span style="color: #333333">=</span> <span style="background-color: #fff0f0">&quot;&quot;</span>
+
+    <span style="color: #888888"># fill in here your timestep between two measurements.</span>
+    timestep <span style="color: #333333">=</span> <span style="color: #0000DD; font-weight: bold">1</span>
+
+    sio<span style="color: #333333">.</span>emit(<span style="background-color: #fff0f0">&quot;updatedata&quot;</span>, {<span style="background-color: #fff0f0">&#39;measurementname&#39;</span>: measurementname,<span style="background-color: #fff0f0">&#39;time&#39;</span>: x, <span style="background-color: #fff0f0">&#39;value&#39;</span>: y})
+    time<span style="color: #333333">.</span>sleep(timestep) <span style="color: #888888"># change this to change the time interval between two data points</span>
+measure()
 </pre>
         </div>
+
     </li>
-    <li class="list-group-item">2. go to the measurement page in the App and click on "Add measurement". </li>
+    <li class="list-group-item">2. Go to the measurement page in the App and click on "Add measurement". </li>
     <li class="list-group-item">3. Make sure the name of the measurement in the app and in the program on your raspberry
         are the same.</li>
-    <li class="list-group-item">4. run the program on the raspberry PI, now you should start seeing live data streaming
+    <li class="list-group-item">4. Run the program on the raspberry PI, now you should start seeing live data streaming
         on your measurement page</li>
 </ul>
 {% endblock %}

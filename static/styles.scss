@@ -1,10 +1,17 @@
-// switch button
-
-
 $desert: #FFCB9A;
+$desert: #9a9a9a;
 $clay: #A43820;
 $crevice: #46211A;
 $cloud: #693D3D;
+a {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+}
+// switch button
 .switch {
     position: relative;
     display: inline-block;
@@ -12,179 +19,163 @@ $cloud: #693D3D;
     height: 75px;
   }
   
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 59px;
-    width: 59px;
-    left: 8px;
-    bottom: 8px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: 		#b3ff99;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 2px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(37px);
-    -ms-transform: translateX(37px);
-    transform: translateX(37px);
-  }
-  
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 68px; //68
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 59px;
+  width: 59px;
+  left: 8px;
+  bottom: 8px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: 		#007bff;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 2px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(37px);
+  -ms-transform: translateX(37px);
+  transform: translateX(37px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 68px; 
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 
-  // slidebar ------------------
+// slidebar 
+.slidecontainer {
+  width: 100%; 
+}
 
-  .slidecontainer {
-    width: 100%; /* Width of the outside container */
-  }
-  
-  /* The slider itself */
-  .slidebar {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;  
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
-  
-  .slidebar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%; 
-    background: #4CAF50;
-    cursor: pointer;
-  }
-  
-  .slidebar::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
-  } 
+/* The slider itself */
+.slidebar {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
 
-  // container controller
-  .containerx {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    background: $desert;
-    padding: 20px;
-    margin-top: 20px;
-    height: 200px;
-    max-width: 100%;
-    position: relative;
-    display: block;
-  }
+.slidebar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #007bff;
+  cursor: pointer;
+}
 
-  
-  // container measurement
-  .containermeas {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    background: $desert;
-    padding: 20px;
-    margin-top: 20px;
-    max-width: 100%;
-    position: relative;
-    display: block;
-  }
-  
-  // container form
-  .containerform {
-    display: none;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    background: $desert;
-    padding: 20px;
-    margin: 20px;
-    max-width: 100%;
-    position: relative;
-    display: block;
-  }
- .buttoninfo {
-    margin-right: 10%;
-    
-    float: right;
+.slidebar::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+} 
 
-    p2 {
-      font-size: 20px;
-      color: #ffffff;
-      
-    }
-  }
+// container controller
+.containerx {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: $desert;
+  padding: 20px;
+  margin-top: 20px;
+  height: 200px;
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
 
-  .buttoninfoslider {
-    
-    float: left;
+// container measurement
+.containermeas {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: $desert;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
 
-    p2 {
-      font-size: 20px;
-      color: #ffffff;
-    }
-  }
+// container form
+.containerform {
+  display: none;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  background: $desert;
+  padding: 20px;
+  margin: 20px;
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
 
-  .buttoninfosid {
-    position: absolute;
-    left: 20px;
-    bottom: 0px;
-    width: 80%;
-  }
+.buttoninfo {
+  margin-right: 10%;
+  float: right;
+}
 
-  .buttoninfosidtoggle {
-    position: absolute;
-    left: 20px;
-    bottom: 0px;
-    width: 80%;
-  }
+p2 {
+  font-size: 20px;
+  color: #ffffff;
+}
 
-  .slidenumber {
-    font-size: 30px;
-    font-weight: bold;
-    color: #ffffff;
-  }
+.buttoninfoslider {
+  float: left;
+
+}
+
+.buttoninfosid {
+  position: absolute;
+  left: 20px;
+  bottom: 0px;
+  width: 80%;
+}
+
+.slidenumber {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ffffff;
+}
 
 .delete {
   position: absolute;
@@ -204,40 +195,41 @@ $cloud: #693D3D;
   }
 
 @media (min-width:800px){
- 
-  .containerx, .containermeas {
+  .containerx {
     width: 45%;
-    margin-right: 20px;
+    margin-left: 20px;
     display:inline-block;
   }
 }
 
+@media (min-width:1400px){
+  .containermeas {
+    width: 45%;
+    margin-left: 20px;
+    display:inline-block;
+  }
+}  
 @media (min-width:2300px){
- 
-  .containerx, containermeas {
+  .containerx {
     width: 30%;
-    
     display:inline-block;
   }
-}
 
+}
 
 // record button
 #recButton {
-	width: 35px;
-	height: 35px;
+	width: 30px;
+	height: 30px;
 	font-size: 0;
-	background-color: red;
+	background-color: rgb(107, 1, 1);
 	border: 0;
-	
-	margin: 18px;
+	margin: 0px;
   outline: none;
-
- 
 }
 
 .notRec{
-	background-color: darkred;
+	background-color: rgb(160, 3, 3);
 }
 
 .Rec{

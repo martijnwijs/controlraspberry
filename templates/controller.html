@@ -15,11 +15,10 @@
             <b>Type:</b> {{controller.type}}<br>
             <b>Name:</b> {{controller.name}}<br>
             <b>Pinnumber:</b> {{controller.pinnumber}}<br>
-
         </p2>
         <br>
     </div>
-    <div class="buttoninfosidtoggle">
+    <div class="buttoninfosid">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" name="{{controller.name}}">SID</span>
@@ -31,7 +30,7 @@
     <div class="delete">
         <form method="POST" action="/controller">
             <input name="name" type="hidden" value="{{ controller.name }}">
-            <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
+            <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;">
         </form>
     </div>
 </div>
@@ -64,7 +63,7 @@
     <div class="delete">
         <form method="POST" action="/controller">
             <input name="name" type="hidden" value="{{ controller.name }}">
-            <input class="image" type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
+            <input class="image" type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;">
         </form>
     </div>
 </div>
@@ -72,13 +71,14 @@
 {% endfor %}
 
 <br>
-<a href="/addcontroller">
-    <p1>add controller</p1>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="/addcontroller">
+    <img src="/static/plus.svg" width="75" height="75" title="Add" alt="Add">
 </a>
-
+<br>
+<br>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-
         // Connect to websocket
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -120,9 +120,6 @@
             });
         });
     })
-
 </script>
-
 {% endblock %}
-
 </html>

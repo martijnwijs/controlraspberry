@@ -1,3 +1,12 @@
+a {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -36,7 +45,7 @@
 }
 
 input:checked + .slider {
-  background-color: #b3ff99;
+  background-color: #007bff;
 }
 
 input:focus + .slider {
@@ -60,7 +69,6 @@ input:checked + .slider:before {
 
 .slidecontainer {
   width: 100%;
-  /* Width of the outside container */
 }
 
 /* The slider itself */
@@ -82,7 +90,7 @@ input:checked + .slider:before {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: #007bff;
   cursor: pointer;
 }
 
@@ -90,7 +98,7 @@ input:checked + .slider:before {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: #007bff;
   cursor: pointer;
 }
 
@@ -98,7 +106,7 @@ input:checked + .slider:before {
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;
-  background: #FFCB9A;
+  background: #9a9a9a;
   padding: 20px;
   margin-top: 20px;
   height: 200px;
@@ -111,7 +119,7 @@ input:checked + .slider:before {
   display: flex;
   flex-wrap: wrap;
   border-radius: 5px;
-  background: #FFCB9A;
+  background: #9a9a9a;
   padding: 20px;
   margin-top: 20px;
   max-width: 100%;
@@ -123,7 +131,7 @@ input:checked + .slider:before {
   display: none;
   flex-wrap: wrap;
   border-radius: 5px;
-  background: #FFCB9A;
+  background: #9a9a9a;
   padding: 20px;
   margin: 20px;
   max-width: 100%;
@@ -135,7 +143,8 @@ input:checked + .slider:before {
   margin-right: 10%;
   float: right;
 }
-.buttoninfo p2 {
+
+p2 {
   font-size: 20px;
   color: #ffffff;
 }
@@ -143,19 +152,8 @@ input:checked + .slider:before {
 .buttoninfoslider {
   float: left;
 }
-.buttoninfoslider p2 {
-  font-size: 20px;
-  color: #ffffff;
-}
 
 .buttoninfosid {
-  position: absolute;
-  left: 20px;
-  bottom: 0px;
-  width: 80%;
-}
-
-.buttoninfosidtoggle {
   position: absolute;
   left: 20px;
   bottom: 0px;
@@ -186,30 +184,37 @@ input:checked + .slider:before {
 }
 
 @media (min-width: 800px) {
-  .containerx, .containermeas {
+  .containerx {
     width: 45%;
-    margin-right: 20px;
+    margin-left: 20px;
+    display: inline-block;
+  }
+}
+@media (min-width: 1400px) {
+  .containermeas {
+    width: 45%;
+    margin-left: 20px;
     display: inline-block;
   }
 }
 @media (min-width: 2300px) {
-  .containerx, containermeas {
+  .containerx {
     width: 30%;
     display: inline-block;
   }
 }
 #recButton {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   font-size: 0;
-  background-color: red;
+  background-color: #6b0101;
   border: 0;
-  margin: 18px;
+  margin: 0px;
   outline: none;
 }
 
 .notRec {
-  background-color: darkred;
+  background-color: #a00303;
 }
 
 .Rec {

@@ -1,10 +1,10 @@
-{% extends "layout2.html" %}
+{% extends "layoutlogin.html" %}
 {% block main %}
 
 <div class="sidenav">
     <div class="login-main-text">
         <h2>Raspberry PI controlapp</h2>
-        <p>Login or register from here to access.</p>
+        <p>Login or register here to access.</p>
     </div>
 </div>
 
@@ -28,13 +28,11 @@
                 The chosen username is not available.
                 {% endif %}
                 <button type="submit" class="btn btn-black">Submit</button>
-
             </form>
 
             <a href="{{ url_for('login') }}"> Or login here!</a>
         </div>
     </div>
 </div>
-
 
 {% endblock %}

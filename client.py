@@ -54,7 +54,8 @@ def measure():
         # fill in here your timestep between two measurements.
         timestep = 1
         print(y)
-        sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y})
+        
+        sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y, 'sid': sio.sid })
         time.sleep(timestep) # change this to change the time interval between two data points
 
 measure()

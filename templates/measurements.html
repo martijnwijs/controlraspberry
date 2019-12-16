@@ -9,19 +9,26 @@
         <canvas id='{{measurement.name}}'></canvas>
     </div>
     <div class="deletemeas">
-    <form method="POST" action="/measurements">
-        <input name="name" type="hidden" value="{{ measurement.name }}">
-        <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
-    </form>
+        <form method="POST" action="/measurements">
+            <input name="name" type="hidden" value="{{ measurement.name }}">
+            <input type="image" src="/static/delete.svg" alt="delete" style="width:50px;height:70px;" />
+        </form>
     </div>
-    Record: <button data-record='{{measurement.name}}' class="notRec" id="recButton" style="border-radius: 35px; overflow: hidden;"></button>
+    <button data-record='{{measurement.name}}' class="notRec" id="recButton"
+        style="border-radius: 35px; overflow: hidden;"></button> &nbsp; <p2>Record</p2> 
 </div>
 
 {% endfor %}
-
+<br>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="/addmeasurement">
+    <img src="/static/plus.svg" width="75" height="75" title="Add" alt="Add">
+</a>
+<br>
+<br>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-
+        
         // Connect to websocket
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -29,31 +36,29 @@
         socket.on('updatedata', data => {
             
             addData(eval(data['measurementname']), data['time'], data['value'])
-
             removeData(eval(data['measurementname']))
             updataData(eval(data['measurementname']))
-
+            
             // if recording send data
             document.querySelectorAll('button').forEach(button => {
                 if ((button.classList.contains('Rec'))) {
-                     // find measurementname and emit data
-                     measurementname = button.dataset.record
+
+                    // find measurementname and emit data
+                    measurementname = button.dataset.record
                     socket.emit('recording', { 'measurementname': measurementname, 'time': data['time'], 'value': data['value'] })
                 }
             })
-
-
         });
 
         // record function
         document.querySelectorAll('button').forEach(button => {
-            button.onclick = () => {     
-                if ( button.classList.contains('notRec')) {
+            button.onclick = () => {
+                if (button.classList.contains('notRec')) {
                     button.classList.remove('notRec')
                     button.classList.add('Rec');
-                    
+
                 }
-                else if ( button.classList.contains('Rec')) {
+                else if (button.classList.contains('Rec')) {
                     button.classList.remove('Rec')
                     button.classList.add('notRec');
                     filename = button.dataset.record.concat('.csv')
@@ -116,5 +121,4 @@
         chart.update();
     }
 </script>
-
 {% endblock %}

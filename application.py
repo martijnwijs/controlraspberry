@@ -160,6 +160,7 @@ def addcontroller():
         check = Controller.query.filter((Controller.name == name) & (Controller.user == session['user'])).all()
         if len(check) > 0:
             return render_template("addcontroller.html", page="controllers", message3=True)
+            
         # add to database and redirect
         controller = Controller(type=type, name=name, pinnumber=pinnumber, min=min, max=max, user=session['user'])
         db.session.add(controller)
@@ -234,7 +235,7 @@ def setup():
 @socketio.on("submitswitch") 
 def vote(data):
     print(data)
-    
+
     # split id's to make broadcasting to more users possible
     listid = data['sid'].split(',')
     for id in listid:
