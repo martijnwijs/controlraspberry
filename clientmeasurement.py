@@ -45,17 +45,15 @@ def measure():
         second = '{:02d}'.format(now.second)
         x = '{}-{}-{}'.format(hour, minute, second)
 
-        # get here your Y value from a sensor or something else...
+        # get here your Y value from GPIO sensor data or something else...
         y = randint(0, 10)
     
         # fill in here your measurementname, it should be the same as the name of the measurementname in the App
-        measurementname = "sdf"
+        measurementname = ""
 
         # fill in here your timestep between two measurements.
         timestep = 1
-        print(y)
-        
-        sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y, 'sid': sio.sid })
-        time.sleep(timestep) # change this to change the time interval between two data points
 
+        sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y})
+        time.sleep(timestep) # change this to change the time interval between two data points
 measure()
