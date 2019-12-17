@@ -17,7 +17,7 @@ __4-12__
 gevraagd aan Simon over hoe ik dit probleem het best kon aanpakken. hij had al meer ervaring met websockets en vertelde over de libary socket.io for Python. Toen had ik vrij snel een socket verbinding gecreeerd met een flask applicatie en een python programma die naar beide kanten data kon versturen. verder de eerste control button geprogrammeerd (toggle switch), zowel front als backend.
 
 __5-12__
-verder gewerkt aan de app. Veel geleerd over javascript, eventlisteners en innerhtml om dynamische content te laten zien. dit was al eerder langsgekomen bij books maar werd nu wat duidelijker. en hoe je functies in functies maakt.
+verder gewerkt aan de app. Veel geleerd over javascript, eventlisteners en innerhtml om dynamische content te laten zien. dit was al eerder langsgekomen bij books maar werd nu wat duidelijker. en hoe je functies in functies maakt (=>)
 aan het einde van de dag was de alphaversie nog niet ver genoeg, er konden nog geen control buttons worden toegevoegd. 
 
 __6-12__
@@ -26,10 +26,25 @@ De alpha versie afgemaakt. er zijn nu twee soorten control buttons: toggle switc
 __7-12__
 Aan de meetpagina begonnen. geleerd hoe de uitbreiding chart.js werkt. Live data gestreamd vanaf een client programma.
 
-__8-12__
+__9-12__
 verder gegaan aan de measurement pagina en de record functie gemaakt. geleerd hoe je een csv bestand stuurt en hoe je deze vervolgens in  de zelfde functie verwijdert. dit bleek best lastig doordat wanneer je functie stuurt je hem niet kan verwijderen. de  oplossing bleek om het bestand te kopieren in het tijdelijk geheugen en vervolgens te verwijderen. 
 
-__9-12__
+__10-12__
 voor het eerst de raspberry aangestuurd via de app. alles werkte behoorlijk goed. het lukte om een ledje aan en uit te laten gaan, code te excecuten en een servostand te veranderen.  geleerd hoe je doormiddel van  een  doorgegeven string een variabele aanroept. dit  doe je doormiddel van een dictionary. als je bijvoorbeeld GPIO.OUT wil callen maar je krijgt de string "GPIO.OUT" binnen, dan kun je deze variabele aanroepen doormiddel van de dictionary  dict = {"GPIO.OUT": GPIO.OUT}.
 verder geleerd over hoe je een servo aanstuurt met de raspberry pi. dit  gebeurt door een varierend PWM signaal, en dit is precies wat de slider controller gaat doen. de duty cycle , de verhouding tusen pulsduur en de periode. bij servos zit deze vaak tussen de 2% en 15%. het idee is dat de gebruiker de pulsduur aangeeft en dat hierdoor vervolgens het juiste signaal bij de actuator uitkomt. dit is ook gelukt.  
 
+__11-12__
+ geleerd hoe je met javascript de class aanpast van een html element, om zo de css dynamisch te maken. dit heb ik gebruikt om een record functie te maken. 
+
+__12-12__
+geleerd hoe je div containers in een dynamisch grid plaatst dat ook van dimensies meeveranderd. doormiddel van de css display: flex;
+flex-wrap: wrap;. max-width: 100%;. 
+
+__13-12__
+ de volgende belangrijkste bugs tegengekomen en opgelost:
+- /download/application.py zou de flask applicatie sturen en hem vervolgens verwijderen. daarom heb ik code toegevoegd waardoor het aangevraagde downloadbestand een .csv bestand is. dit kan je door de volgende regel code checken:
+__if not fnmatch.fnmatch(filename, '*.csv'):__
+- wanneer forms niet volledig worden ingevoerd ontstaat er een error.
+
+__16-12__
+code  netjes gemaakt en aan opmaak gewerkt

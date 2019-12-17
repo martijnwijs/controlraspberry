@@ -3,7 +3,6 @@ import time
 from random import randint
 import datetime
 
-
 sio = socketio.Client()
 
 @sio.event
@@ -49,11 +48,11 @@ def measure():
         y = randint(0, 10)
     
         # fill in here your measurementname, it should be the same as the name of the measurementname in the App
-        measurementname = ""
+        measurementname = "sdf"
 
         # fill in here your timestep between two measurements.
         timestep = 1
-
+        print(x,y)
         sio.emit("updatedata", {'measurementname': measurementname,'time': x, 'value': y})
         time.sleep(timestep) # change this to change the time interval between two data points
 measure()
