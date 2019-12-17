@@ -2,7 +2,7 @@ __project name:__ Control you Raspberry online
 
 __purpose:__ To control a Raspberry PI via a webapp without the need to write any code yourself and to stream measurements and record them.
 
-![image screenshots](screenshots.jpg)
+![image screenshots](/img/screenshots.jpg)
 
 __files__ 
 - application.py is the flask application
